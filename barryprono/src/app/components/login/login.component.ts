@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { take, tap } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
+import { debounceTime, switchMap, take, tap } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -14,27 +15,26 @@ export class LoginComponent {
   realPassword?: string;
   userExists = false;
   error?: string;
+  checkUser$ = new Subject<string>();
 
   constructor(
     private userService: UserService,
     private navController: NavController
-  ) {}
+  ) {
+    this.checkUser$
+      .pipe(
+        debounceTime(400),
+        switchMap(() => this.userService.findUser(this.name as string)),
+        tap((user) => {
+          this.userExists = !!user;
+          this.realPassword = user?.password;
+        })
+      )
+      .subscribe();
+  }
 
   onNameChange() {
-    if (this.name) {
-      this.userService
-        .findUser(this.name)
-        .pipe(
-          take(1),
-          tap((user) => {
-            this.userExists = !!user;
-            this.realPassword = user?.password;
-          })
-        )
-        .subscribe();
-    } else {
-      this.userExists = false;
-    }
+    this.checkUser$.next(this.name);
   }
 
   login(): void {
