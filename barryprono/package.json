@@ -44,6 +44,7 @@
     "inquirer": "^6.2.2",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "open": "^7.0.3",
-    "jsonc-parser": "^3.0.0"
+    "jsonc-parser": "^3.0.0",
+    "@ionic/angular-toolkit": "latest"
   }
 }
