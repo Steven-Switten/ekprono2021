@@ -28,7 +28,7 @@
       [ngClass]="{ 'accordion--hide': showFirstMatchDay === false }"
     >
       <div *ngFor="let match of firstMatches">
-        <ion-item>
+        <ion-item (click)="goToMatch(match)">
           <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
           <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
         </ion-item>
@@ -54,7 +54,7 @@
       [ngClass]="{ 'accordion--hide': showSecondMatchDay === false }"
     >
       <div *ngFor="let match of secondMatches">
-        <ion-item>
+        <ion-item (click)="goToMatch(match)">
           <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
           <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
         </ion-item>
@@ -80,7 +80,7 @@
       [ngClass]="{ 'accordion--hide': showThirdMatchDay === false }"
     >
       <div *ngFor="let match of thirdMatches">
-        <ion-item>
+        <ion-item (click)="goToMatch(match)">
           <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
           <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
         </ion-item>
@@ -106,7 +106,7 @@
       [ngClass]="{ 'accordion--hide': showKnockOutMatches === false }"
     >
       <div *ngFor="let match of knockOutMatches">
-        <ion-item>
+        <ion-item (click)="goToMatch(match)">
           <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
           <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
         </ion-item>
@@ -132,7 +132,7 @@
       [ngClass]="{ 'accordion--hide': showQuarterFinals === false }"
     >
       <div *ngFor="let match of quarterFinals">
-        <ion-item>
+        <ion-item (click)="goToMatch(match)">
           <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
           <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
         </ion-item>
@@ -141,7 +141,7 @@
     <ion-list-header> Halve finales </ion-list-header>
     <ion-item-group>
       <div *ngFor="let match of semiFinals">
-        <ion-item>
+        <ion-item (click)="goToMatch(match)">
           <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
           <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
         </ion-item>
@@ -149,7 +149,7 @@
     </ion-item-group>
     <ion-list-header> Match voor 3e plaats </ion-list-header>
     <ion-item-group *ngIf="smallFinal">
-      <ion-item>
+      <ion-item (click)="goToMatch(smallFinal)">
         <ion-label
           >{{ smallFinal.homeTeam }} - {{ smallFinal.awayTeam }}</ion-label
         >
@@ -158,7 +158,7 @@
     </ion-item-group>
     <ion-list-header>Finale </ion-list-header>
     <ion-item-group *ngIf="final">
-      <ion-item>
+      <ion-item (click)="goToMatch(final)">
         <ion-label>{{ final.homeTeam }} - {{ final.awayTeam }}</ion-label>
         <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
       </ion-item>

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Match } from 'src/app/models/match';
-import { Prono } from 'src/app/models/prono';
 import { UserService } from 'src/app/services/user.service';
 import { MatchService } from '../../services/match.service';
 
@@ -74,7 +73,7 @@ export class PronosComponent {
     this.navController.navigateBack('home');
   }
 
-  saveProno(prono: Prono) {
-    this.userService.saveProno(this.userService.user, prono).subscribe();
+  goToMatch(match: Match) {
+    this.navController.navigateForward(`pronos/detail/${match.id}`);
   }
 }

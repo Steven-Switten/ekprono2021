@@ -6,6 +6,7 @@ import { ExtrasComponent } from './components/extras/extras.component';
 import { RankingsComponent } from './components/rankings/rankings.component';
 import { PronosComponent } from './components/pronos/pronos.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { PronoDetailComponent } from './components/pronos/prono-detail.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,11 @@ const routes: Routes = [
     path: 'pronos',
     component: PronosComponent,
   },
+  {
+    path: 'pronos/detail/:id',
+    component: PronoDetailComponent,
+  },
+
   {
     path: 'extras',
     component: ExtrasComponent,
