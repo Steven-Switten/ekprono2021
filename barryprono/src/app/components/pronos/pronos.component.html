@@ -1,1 +1,167 @@
-coming soon
+<ion-header>
+  <ion-toolbar color="primary"
+    ><ion-buttons slot="start"
+      ><ion-button (click)="goBack()"
+        ><ion-icon name="arrow-back-outline"></ion-icon></ion-button
+    ></ion-buttons>
+    <ion-title>Pronostieken</ion-title>
+  </ion-toolbar> </ion-header
+><ion-content forceOverscroll="false">
+  <ion-list>
+    <ion-list-header>
+      Eerste speeldag
+      <ion-icon
+        *ngIf="showFirstMatchDay"
+        class="collapse-icon"
+        (click)="showFirstMatchDay = !showFirstMatchDay"
+        name="chevron-up-outline"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="!showFirstMatchDay"
+        class="collapse-icon"
+        (click)="showFirstMatchDay = !showFirstMatchDay"
+        name="chevron-down-outline"
+      ></ion-icon>
+    </ion-list-header>
+    <ion-item-group
+      class="accordion"
+      [ngClass]="{ 'accordion--hide': showFirstMatchDay === false }"
+    >
+      <div *ngFor="let match of firstMatches">
+        <ion-item>
+          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+      </div>
+    </ion-item-group>
+    <ion-list-header>
+      Tweede speeldag
+      <ion-icon
+        *ngIf="showSecondMatchDay"
+        class="collapse-icon"
+        (click)="showSecondMatchDay = !showSecondMatchDay"
+        name="chevron-up-outline"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="!showSecondMatchDay"
+        class="collapse-icon"
+        (click)="showSecondMatchDay = !showSecondMatchDay"
+        name="chevron-down-outline"
+      ></ion-icon>
+    </ion-list-header>
+    <ion-item-group
+      class="accordion"
+      [ngClass]="{ 'accordion--hide': showSecondMatchDay === false }"
+    >
+      <div *ngFor="let match of secondMatches">
+        <ion-item>
+          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+      </div>
+    </ion-item-group>
+    <ion-list-header>
+      Derde speeldag
+      <ion-icon
+        *ngIf="showThirdMatchDay"
+        class="collapse-icon"
+        (click)="showThirdMatchDay = !showThirdMatchDay"
+        name="chevron-up-outline"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="!showThirdMatchDay"
+        class="collapse-icon"
+        (click)="showThirdMatchDay = !showThirdMatchDay"
+        name="chevron-down-outline"
+      ></ion-icon>
+    </ion-list-header>
+    <ion-item-group
+      class="accordion"
+      [ngClass]="{ 'accordion--hide': showThirdMatchDay === false }"
+    >
+      <div *ngFor="let match of thirdMatches">
+        <ion-item>
+          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+      </div>
+    </ion-item-group>
+    <ion-list-header>
+      Achtste finales
+      <ion-icon
+        *ngIf="showKnockOutMatches"
+        class="collapse-icon"
+        (click)="showKnockOutMatches = !showKnockOutMatches"
+        name="chevron-up-outline"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="!showKnockOutMatches"
+        class="collapse-icon"
+        (click)="showKnockOutMatches = !showKnockOutMatches"
+        name="chevron-down-outline"
+      ></ion-icon>
+    </ion-list-header>
+    <ion-item-group
+      class="accordion"
+      [ngClass]="{ 'accordion--hide': showKnockOutMatches === false }"
+    >
+      <div *ngFor="let match of knockOutMatches">
+        <ion-item>
+          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+      </div>
+    </ion-item-group>
+    <ion-list-header>
+      Kwartfinales
+      <ion-icon
+        *ngIf="showQuarterFinals"
+        class="collapse-icon"
+        (click)="showQuarterFinals = !showQuarterFinals"
+        name="chevron-up-outline"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="!showQuarterFinals"
+        class="collapse-icon"
+        (click)="showQuarterFinals = !showQuarterFinals"
+        name="chevron-down-outline"
+      ></ion-icon>
+    </ion-list-header>
+    <ion-item-group
+      class="accordion"
+      [ngClass]="{ 'accordion--hide': showQuarterFinals === false }"
+    >
+      <div *ngFor="let match of quarterFinals">
+        <ion-item>
+          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+      </div>
+    </ion-item-group>
+    <ion-list-header> Halve finales </ion-list-header>
+    <ion-item-group>
+      <div *ngFor="let match of semiFinals">
+        <ion-item>
+          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+      </div>
+    </ion-item-group>
+    <ion-list-header> Match voor 3e plaats </ion-list-header>
+    <ion-item-group *ngIf="smallFinal">
+      <ion-item>
+        <ion-label
+          >{{ smallFinal.homeTeam }} - {{ smallFinal.awayTeam }}</ion-label
+        >
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+      </ion-item>
+    </ion-item-group>
+    <ion-list-header>Finale </ion-list-header>
+    <ion-item-group *ngIf="final">
+      <ion-item>
+        <ion-label>{{ final.homeTeam }} - {{ final.awayTeam }}</ion-label>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

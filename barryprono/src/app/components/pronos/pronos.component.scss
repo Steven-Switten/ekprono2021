@@ -1,0 +1,21 @@
+.accordion {
+  ion-item {
+    line-height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 60px;
+    transition: 0.2s all linear;
+  }
+
+  &--hide {
+    ion-item {
+      display: block !important;
+      line-height: 0px;
+      height: 0px;
+    }
+  }
+}
+
+.collapse-icon {
+  margin-left: 15px;
+}

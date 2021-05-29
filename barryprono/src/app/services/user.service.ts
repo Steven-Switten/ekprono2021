@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { from, Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Extras } from '../models/extras';
+import { Prono } from '../models/prono';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +54,15 @@ export class UserService {
         .collection<Extras>('challenges')
         .doc(user)
         .set({ ...extras })
+    );
+  }
+
+  saveProno(user: string | undefined, prono: Prono): Observable<any> {
+    return from(
+      this.firestore
+        .collection<Prono>('pronos')
+        .doc(`${user}-${prono.matchId}`)
+        .set({ ...prono })
     );
   }
 }

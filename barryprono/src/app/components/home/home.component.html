@@ -3,7 +3,14 @@
     ><ion-title>Ghello {{ name }}</ion-title></ion-toolbar
   > </ion-header
 ><ion-content forceOverscroll="false">
-  <ion-item (click)="goToRankings()"> Tussenstand</ion-item>
-  <ion-item (click)="goToPronos()"> Pronostieken</ion-item>
-  <ion-item (click)="goToExtras()"> Kies EK Winnaars en losers</ion-item>
+  <ion-item (click)="goToRankings()">
+    Tussenstand <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+  ></ion-item>
+  <ion-item (click)="goToPronos()">
+    Pronostieken <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+  ></ion-item>
+  <ion-item (click)="goToExtras()">
+    Kies EK Winnaars en losers
+    <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+  ></ion-item>
 </ion-content>

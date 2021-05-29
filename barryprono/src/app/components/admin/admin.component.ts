@@ -3,7 +3,7 @@ import { NavController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { Match } from 'src/app/models/match';
 import { UserService } from 'src/app/services/user.service';
-import { AdminService } from '../../services/admin.service';
+import { MatchService } from '../../services/match.service';
 
 @Component({
   selector: 'app-admin',
@@ -27,7 +27,7 @@ export class AdminComponent {
 
   constructor(
     private userService: UserService,
-    private adminService: AdminService,
+    private adminService: MatchService,
     private navController: NavController
   ) {
     const arrays = Object.values(this.groups) as any[];
@@ -61,7 +61,6 @@ export class AdminComponent {
       this.matchToEdit.date = new Date(
         `${this.dateString}Z${this.matchToEdit.time}+0200`
       );
-      console.log('this.matchToEdit.date', this.matchToEdit.date);
     }
     this.adminService.createOrUpdateMatch(this.matchToEdit);
     this.creatingMatch = false;

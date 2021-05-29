@@ -6,7 +6,7 @@ import { Match } from '../models/match';
 @Injectable({
   providedIn: 'root',
 })
-export class AdminService {
+export class MatchService {
   constructor(private firestore: AngularFirestore) {}
 
   createOrUpdateMatch(match: Match): Observable<any> {
