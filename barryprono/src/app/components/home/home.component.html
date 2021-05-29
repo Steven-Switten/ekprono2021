@@ -3,7 +3,7 @@
     ><ion-title>Ghello {{ name }}</ion-title></ion-toolbar
   > </ion-header
 ><ion-content forceOverscroll="false">
-  <ion-item> Tussenstand</ion-item>
-  <ion-item> Pronostieken</ion-item>
-  <ion-item> EK Winnaars en losers</ion-item>
+  <ion-item (click)="goToRankings()"> Tussenstand</ion-item>
+  <ion-item (click)="goToPronos()"> Pronostieken</ion-item>
+  <ion-item (click)="goToExtras()"> EK Winnaars en losers</ion-item>
 </ion-content>

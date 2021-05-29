@@ -12,6 +12,7 @@ import { AngularFireModule } from '@angular/fire';
 import { UserService } from './services/user.service';
 import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { PronosComponent } from './components/pronos/pronos.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { environment } from 'src/environments/environment';
     RankingsComponent,
     ExtrasComponent,
     HomeComponent,
+    PronosComponent,
   ],
   imports: [
     BrowserModule,
