@@ -10,5 +10,211 @@
         ><ion-icon name="save-outline"></ion-icon></ion-button></ion-buttons
   ></ion-toolbar> </ion-header
 ><ion-content forceOverscroll="false">
-  <ion-item></ion-item>
+  <ion-item
+    ><h4 style="color: red">In te vullen voor 11/06/2021 21:00</h4></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wint het EK? (10 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.winnerAll"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of allTeams" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wordt 2e? (2 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.secondPlace"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of allTeams" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wordt 3e? (1 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.thirdPlace"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of allTeams" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wordt 4e? (1 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.fourthPlace"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of allTeams" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wint groep A? (1 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.winnerA"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.a" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wint groep B? (1 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.winnerB"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.b" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wint groep C? (1 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.winnerC"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.c" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wint groep D? (1 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.winnerD"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.d" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wint groep E? (1 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.winnerE"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.e" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wint groep F? (1 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="extras.winnerF"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.f" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked"
+      >Wie wordt laatst in groep A? (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="extras.loserA"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.a" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked"
+      >Wie wordt laatst in groep B? (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="extras.loserB"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.b" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked"
+      >Wie wordt laatst in groep C? (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="extras.loserC"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.c" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked"
+      >Wie wordt laatst in groep D? (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="extras.loserD"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.d" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked"
+      >Wie wordt laatst in groep E? (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="extras.loserE"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.e" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked"
+      >Wie wordt laatst in groep F? (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="extras.loserF"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let team of groups.f" [value]="team">{{
+        team
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
 </ion-content>
