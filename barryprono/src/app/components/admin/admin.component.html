@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Admin page</ion-title>
+  </ion-toolbar> </ion-header
+><ion-content forceOverscroll="false">
+  <ion-button *ngIf="!creatingMatch" (click)="createNewMatch()"
+    >Create match</ion-button
+  >
+  <div *ngIf="creatingMatch">
+    <ion-item>
+      <ion-label position="stacked">Home</ion-label>
+      <ion-select [(ngModel)]="matchToEdit.homeTeam" interface="popover">
+        <ion-select-option *ngFor="let team of allTeams" [value]="team">{{
+          team
+        }}</ion-select-option>
+      </ion-select></ion-item
+    >
+    <ion-item>
+      <ion-label position="stacked">Away</ion-label>
+      <ion-select [(ngModel)]="matchToEdit.awayTeam" interface="popover">
+        <ion-select-option *ngFor="let team of allTeams" [value]="team">{{
+          team
+        }}</ion-select-option>
+      </ion-select></ion-item
+    >
+    <ion-item>
+      <ion-label position="stacked">Date</ion-label>
+      <ion-input [(ngModel)]="dateString"> </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Time</ion-label
+      ><ion-input [(ngModel)]="matchToEdit.time"> </ion-input>
+    </ion-item>
+    <ion-button (click)="saveMatch()">Save</ion-button>
+  </div>
+</ion-content>

@@ -5,11 +5,16 @@ import { LoginComponent } from './components/login/login.component';
 import { ExtrasComponent } from './components/extras/extras.component';
 import { RankingsComponent } from './components/rankings/rankings.component';
 import { PronosComponent } from './components/pronos/pronos.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
   },
   {
     path: 'home',
