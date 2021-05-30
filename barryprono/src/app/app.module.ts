@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { PronosComponent } from './components/pronos/pronos.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { PronoDetailComponent } from './components/pronos/prono-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AdminComponent } from './components/admin/admin.component';
     HomeComponent,
     PronosComponent,
     AdminComponent,
+    PronoDetailComponent,
   ],
   imports: [
     BrowserModule,

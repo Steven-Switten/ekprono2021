@@ -24,11 +24,16 @@ export class MatchService {
       .collection<Match>('matches')
       .valueChanges()
       .pipe(
-        map((matches) =>
-          matches.sort((m1, m2) =>
-            m1.id === m2.id ? 0 : m1.id < m2.id ? -1 : 1
-          )
-        )
+        map((matches) => {
+          const m = matches.map((m) => {
+            const d = m.date as any;
+            m.date = new Date((d.seconds * 1000) as any);
+            return m;
+          });
+
+          m.sort((m1, m2) => (m1.id === m2.id ? 0 : m1.id < m2.id ? -1 : 1));
+          return m;
+        })
       );
   }
 }

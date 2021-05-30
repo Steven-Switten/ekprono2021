@@ -50,7 +50,6 @@ export class AdminComponent {
         const ids = matches.map((m) => m.id);
         let newId = Math.max(...ids) + 1;
         newId = Number.isNaN(newId) ? 1 : newId;
-        console.log('ids', ids, newId);
         this.matchToEdit.id = newId;
       });
     this.creatingMatch = true;

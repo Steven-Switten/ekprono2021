@@ -9,19 +9,19 @@
 ><ion-content forceOverscroll="false">
   <ion-list>
     <ion-list-header>
-      Eerste speeldag
-      <ion-icon
-        *ngIf="showFirstMatchDay"
-        class="collapse-icon"
-        (click)="showFirstMatchDay = !showFirstMatchDay"
-        name="chevron-up-outline"
-      ></ion-icon>
-      <ion-icon
-        *ngIf="!showFirstMatchDay"
-        class="collapse-icon"
-        (click)="showFirstMatchDay = !showFirstMatchDay"
-        name="chevron-down-outline"
-      ></ion-icon>
+      <h2>Eerste speeldag</h2>
+      <ion-button (click)="showFirstMatchDay = !showFirstMatchDay"
+        ><ion-icon
+          *ngIf="showFirstMatchDay"
+          class="collapse-icon"
+          name="chevron-up-outline"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!showFirstMatchDay"
+          class="collapse-icon"
+          name="chevron-down-outline"
+        ></ion-icon>
+      </ion-button>
     </ion-list-header>
     <ion-item-group
       class="accordion"
@@ -29,25 +29,29 @@
     >
       <div *ngFor="let match of firstMatches">
         <ion-item (click)="goToMatch(match)">
-          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
+          <ion-label
+            ><h3>{{ match.homeTeam }} - {{ match.awayTeam }}</h3>
+            <p>{{ match.date | date: "dd/MM - HH:mm" }}</p>
+          </ion-label>
+
           <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
         </ion-item>
       </div>
     </ion-item-group>
     <ion-list-header>
-      Tweede speeldag
-      <ion-icon
-        *ngIf="showSecondMatchDay"
-        class="collapse-icon"
-        (click)="showSecondMatchDay = !showSecondMatchDay"
-        name="chevron-up-outline"
-      ></ion-icon>
-      <ion-icon
-        *ngIf="!showSecondMatchDay"
-        class="collapse-icon"
-        (click)="showSecondMatchDay = !showSecondMatchDay"
-        name="chevron-down-outline"
-      ></ion-icon>
+      <h2>Tweede speeldag</h2>
+      <ion-button (click)="showSecondMatchDay = !showSecondMatchDay"
+        ><ion-icon
+          *ngIf="showSecondMatchDay"
+          class="collapse-icon"
+          name="chevron-up-outline"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!showSecondMatchDay"
+          class="collapse-icon"
+          name="chevron-down-outline"
+        ></ion-icon>
+      </ion-button>
     </ion-list-header>
     <ion-item-group
       class="accordion"
@@ -61,19 +65,19 @@
       </div>
     </ion-item-group>
     <ion-list-header>
-      Derde speeldag
-      <ion-icon
-        *ngIf="showThirdMatchDay"
-        class="collapse-icon"
-        (click)="showThirdMatchDay = !showThirdMatchDay"
-        name="chevron-up-outline"
-      ></ion-icon>
-      <ion-icon
-        *ngIf="!showThirdMatchDay"
-        class="collapse-icon"
-        (click)="showThirdMatchDay = !showThirdMatchDay"
-        name="chevron-down-outline"
-      ></ion-icon>
+      <h2>Derde speeldag</h2>
+      <ion-button (click)="showThirdMatchDay = !showThirdMatchDay"
+        ><ion-icon
+          *ngIf="showThirdMatchDay"
+          class="collapse-icon"
+          name="chevron-up-outline"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!showThirdMatchDay"
+          class="collapse-icon"
+          name="chevron-down-outline"
+        ></ion-icon>
+      </ion-button>
     </ion-list-header>
     <ion-item-group
       class="accordion"
@@ -87,19 +91,19 @@
       </div>
     </ion-item-group>
     <ion-list-header>
-      Achtste finales
-      <ion-icon
-        *ngIf="showKnockOutMatches"
-        class="collapse-icon"
-        (click)="showKnockOutMatches = !showKnockOutMatches"
-        name="chevron-up-outline"
-      ></ion-icon>
-      <ion-icon
-        *ngIf="!showKnockOutMatches"
-        class="collapse-icon"
-        (click)="showKnockOutMatches = !showKnockOutMatches"
-        name="chevron-down-outline"
-      ></ion-icon>
+      <h2>Achtste finales</h2>
+      <ion-button (click)="showKnockOutMatches = !showKnockOutMatches"
+        ><ion-icon
+          *ngIf="showKnockOutMatches"
+          class="collapse-icon"
+          name="chevron-up-outline"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!showKnockOutMatches"
+          class="collapse-icon"
+          name="chevron-down-outline"
+        ></ion-icon>
+      </ion-button>
     </ion-list-header>
     <ion-item-group
       class="accordion"
@@ -113,19 +117,19 @@
       </div>
     </ion-item-group>
     <ion-list-header>
-      Kwartfinales
-      <ion-icon
-        *ngIf="showQuarterFinals"
-        class="collapse-icon"
-        (click)="showQuarterFinals = !showQuarterFinals"
-        name="chevron-up-outline"
-      ></ion-icon>
-      <ion-icon
-        *ngIf="!showQuarterFinals"
-        class="collapse-icon"
-        (click)="showQuarterFinals = !showQuarterFinals"
-        name="chevron-down-outline"
-      ></ion-icon>
+      <h2>Kwartfinales</h2>
+      <ion-button (click)="showQuarterFinals = !showQuarterFinals"
+        ><ion-icon
+          *ngIf="showQuarterFinals"
+          class="collapse-icon"
+          name="chevron-up-outline"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!showQuarterFinals"
+          class="collapse-icon"
+          name="chevron-down-outline"
+        ></ion-icon>
+      </ion-button>
     </ion-list-header>
     <ion-item-group
       class="accordion"
@@ -138,7 +142,7 @@
         </ion-item>
       </div>
     </ion-item-group>
-    <ion-list-header> Halve finales </ion-list-header>
+    <ion-list-header> <h2>Halve finales</h2></ion-list-header>
     <ion-item-group>
       <div *ngFor="let match of semiFinals">
         <ion-item (click)="goToMatch(match)">
@@ -147,7 +151,7 @@
         </ion-item>
       </div>
     </ion-item-group>
-    <ion-list-header> Match voor 3e plaats </ion-list-header>
+    <ion-list-header><h2>Match voor 3e plaats</h2> </ion-list-header>
     <ion-item-group *ngIf="smallFinal">
       <ion-item (click)="goToMatch(smallFinal)">
         <ion-label
@@ -156,7 +160,7 @@
         <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
       </ion-item>
     </ion-item-group>
-    <ion-list-header>Finale </ion-list-header>
+    <ion-list-header><h2>Finale</h2> </ion-list-header>
     <ion-item-group *ngIf="final">
       <ion-item (click)="goToMatch(final)">
         <ion-label>{{ final.homeTeam }} - {{ final.awayTeam }}</ion-label>

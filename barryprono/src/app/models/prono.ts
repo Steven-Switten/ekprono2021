@@ -1,6 +1,6 @@
 export class Prono {
   user?: string;
-  matchId?: string;
+  matchId?: number;
   homeScore?: number;
   awayScore?: number;
   firstGoalMinute?: number;

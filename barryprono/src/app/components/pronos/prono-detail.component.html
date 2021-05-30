@@ -1,1 +1,37 @@
-<div>match: {{ match?.id }}</div>
+<ion-header>
+  <ion-toolbar color="primary"
+    ><ion-buttons slot="start"
+      ><ion-button (click)="goBack()"
+        ><ion-icon name="arrow-back-outline"></ion-icon></ion-button
+    ></ion-buttons>
+    <ion-title>{{ match?.homeTeam }} - {{ match?.awayTeam }}</ion-title>
+    <ion-buttons slot="end"
+      ><ion-button (click)="saveProno()" [disabled]="!isPronoValid"
+        ><ion-icon name="save-outline"></ion-icon></ion-button></ion-buttons
+  ></ion-toolbar> </ion-header
+><ion-content forceOverscroll="false">
+  <ion-item>
+    <ion-label position="stacked">{{ match?.homeTeam }}</ion-label>
+    <ion-input
+      [disabled]="hasDeadlinePassed"
+      [(ngModel)]="prono.homeScore"
+      type="number"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">{{ match?.awayTeam }}</ion-label>
+    <ion-input
+      [disabled]="hasDeadlinePassed"
+      [(ngModel)]="prono.awayScore"
+      type="number"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Eerste goal minuut</ion-label>
+    <ion-input
+      [disabled]="hasDeadlinePassed"
+      [(ngModel)]="prono.firstGoalMinute"
+      type="number"
+    ></ion-input>
+  </ion-item>
+</ion-content>

@@ -69,4 +69,19 @@ export class UserService {
         .set({ ...prono })
     );
   }
+
+  getProno(
+    user: string | undefined,
+    matchId: number | undefined
+  ): Observable<Prono | undefined> {
+    return this.firestore
+      .collection<Prono>('pronos')
+      .valueChanges()
+      .pipe(
+        take(1),
+        map((pronos) => {
+          return pronos.find((p) => p.matchId === matchId && p.user === user);
+        })
+      );
+  }
 }
