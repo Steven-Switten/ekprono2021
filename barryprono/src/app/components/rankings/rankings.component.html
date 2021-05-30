@@ -1,1 +1,23 @@
-coming soon
+<ion-header>
+  <ion-toolbar color="primary"
+    ><ion-buttons slot="start"
+      ><ion-button (click)="goBack()"
+        ><ion-icon
+          name="arrow-back-outline"
+        ></ion-icon></ion-button></ion-buttons
+    ><ion-title>Tussenstand</ion-title></ion-toolbar
+  > </ion-header
+><ion-content forceOverscroll="false">
+  <ion-list>
+    <ion-item *ngFor="let user of usersRanked">
+      <b class="rank">{{ usersRanked.indexOf(user) + 1 }}</b>
+      <ion-avatar slot="start">
+        <img [src]="getAvatar(user)" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ user.name }}</h2>
+      </ion-label>
+      <b slot="end">{{ user.score }}</b>
+    </ion-item></ion-list
+  >
+</ion-content>

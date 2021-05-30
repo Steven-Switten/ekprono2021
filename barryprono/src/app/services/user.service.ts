@@ -34,6 +34,10 @@ export class UserService {
     return true;
   }
 
+  getAllUsers() {
+    return this.firestore.collection<User>('users').valueChanges();
+  }
+
   register(name: string, password: string): Promise<any> {
     return this.firestore
       .collection<User>('users')
