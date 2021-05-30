@@ -70,10 +70,7 @@ export class RankingsComponent {
     if (user.name.includes('Nick') || user.name.toLowerCase().includes('cry')) {
       return 'assets/nsw.png';
     }
-    if (
-      user.name.includes('Bert') ||
-      user.name.toLowerCase().includes('Berry')
-    ) {
+    if (user.name.includes('Bert') || user.name.includes('Berry')) {
       return 'assets/bvdn.png';
     }
 
