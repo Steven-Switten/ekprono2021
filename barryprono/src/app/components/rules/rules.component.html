@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary"
+    ><ion-buttons slot="start"
+      ><ion-button (click)="goBack()"
+        ><ion-icon name="arrow-back-outline"></ion-icon></ion-button
+    ></ion-buttons>
+    <ion-title>Spelregels punten</ion-title>
+  </ion-toolbar> </ion-header
+><ion-content forceOverscroll="false">
+  <ion-list>
+    <ion-item>
+      <p>Juiste winnaar (of gelijkspel):</p>
+      &nbsp;
+      <b>5 punten</b>
+    </ion-item>
+    <ion-item>
+      <p>Goals correct:</p>
+      &nbsp;
+      <b>1 punt per team</b>
+    </ion-item>
+    <ion-item>
+      <p>Doelsaldo correct:</p>
+      &nbsp;
+      <b>2 punten</b>
+    </ion-item>
+    <ion-item>
+      <p>Minuut 1e goal correct:</p>
+      &nbsp;
+      <b>2 punten</b>
+    </ion-item>
+    <ion-item>
+      <p>Minuut 1e goal + of - 1 minuut:</p>
+      &nbsp;
+      <b>1 punt</b>
+    </ion-item>
+    <ion-item>
+      <p>Goals in blessuretijd tellen als minuut 45 of 90</p>
+    </ion-item>
+    <br />
+    <p class="m-10">Het maximum per match is dus 11 punten</p>
+    <p class="m-10">
+      <b>Voorbeeld:</b> Eindstand 3-1, eerste goal in minuut 45
+    </p>
+    <br />
+    <p class="m-10"><b>1) </b>Pronostiek was 3-1, eerste goal in minuut 15:</p>
+    <p class="m-10">
+      Juiste winnaar + 2x goals correct + doelsaldo correct =<b>
+        5 + 2 + 2 = 9 punten</b
+      >
+    </p>
+    <br />
+    <p class="m-10"><b>2) </b>Pronostiek was 3-0, eerste goal in minuut 45:</p>
+    <p class="m-10">
+      Juiste winnaar + 1x goals correct + minuut correct =<b>
+        5 + 1 + 2 = 8 punten</b
+      >
+    </p>
+    <br />
+    <p class="m-10"><b>3) </b>Pronostiek was 4-2, eerste goal in minuut 38:</p>
+    <p class="m-10">
+      Juiste winnaar + doelsaldo correct =<b> 5 + 2 = 7 punten</b>
+    </p>
+    <br />
+    <p class="m-10"><b>4) </b>Pronostiek was 0-1, eerste goal in minuut 44:</p>
+    <p class="m-10">
+      1x goals correct + minuut bijna correct =<b> 1 + 1 = 2 punten</b>
+    </p>
+  </ion-list>
+</ion-content>

@@ -80,6 +80,12 @@ export class RankingsComponent {
     if (user.name.includes('Bert') || user.name.includes('Berry')) {
       return 'assets/bvdn.png';
     }
+    if (
+      user.name.toLowerCase().includes('floris') ||
+      user.name.toLowerCase().includes('ranzi')
+    ) {
+      return 'assets/ffr.png';
+    }
 
     return '';
   }

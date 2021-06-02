@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar color="primary"
+    ><ion-buttons slot="start"
+      ><ion-button (click)="goBack()"
+        ><ion-icon name="arrow-back-outline"></ion-icon></ion-button
+    ></ion-buttons>
+    <ion-title>Meta pronostiek</ion-title>
+    <ion-buttons slot="end"
+      ><ion-button (click)="saveChanges()"
+        ><ion-icon name="save-outline"></ion-icon></ion-button></ion-buttons
+  ></ion-toolbar> </ion-header
+><ion-content forceOverscroll="false">
+  <ion-item
+    ><h4 style="color: red">In te vullen voor 11/06/2021 21:00</h4>
+  </ion-item>
+  <ion-item
+    ><p style="color: grey">
+      De punten behaald met deze vragen tellen niet mee bij het berekenen van de
+      antwoorden op deze vragen.
+    </p></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked"
+      >Wie gaat de Barryprono winnen? (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="metas.winner"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let user of allUsers" [value]="user.name">{{
+        user.name
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wordt het kneusje? (1 pt)</ion-label>
+    <ion-select
+      [(ngModel)]="metas.loser"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let user of allUsers" [value]="user.name">{{
+        user.name
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie wordt de lucky bruft?</ion-label>
+    <ion-label position="stacked"
+      >(meeste juiste goal-minuten) (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="metas.lucky"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let user of allUsers" [value]="user.name">{{
+        user.name
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked">Wie heeft altijd pech?</ion-label
+    ><ion-label position="stacked"
+      >(minste juiste goal-minuten) (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="metas.unlucky"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option *ngFor="let user of allUsers" [value]="user.name">{{
+        user.name
+      }}</ion-select-option>
+    </ion-select></ion-item
+  >
+  <ion-item>
+    <ion-label position="stacked"
+      >Zal Swiggy boven Bum eindigen? (1 pt)</ion-label
+    >
+    <ion-select
+      [(ngModel)]="metas.bumOrSwiggy"
+      interface="popover"
+      [disabled]="!canEdit"
+    >
+      <ion-select-option value="swiggy">Yes</ion-select-option>
+      <ion-select-option value="bum">Nope</ion-select-option>
+    </ion-select></ion-item
+  >
+</ion-content>

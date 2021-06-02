@@ -5,6 +5,7 @@ import { from, Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Extras } from '../models/extras';
 import { Prono } from '../models/prono';
+import { Metas } from '../models/metas';
 
 @Injectable({
   providedIn: 'root',
@@ -58,6 +59,22 @@ export class UserService {
         .collection<Extras>('challenges')
         .doc(user)
         .set({ ...extras })
+    );
+  }
+
+  loadMetas(user: string) {
+    return this.firestore
+      .collection<Metas>('metas')
+      .valueChanges()
+      .pipe(map((allMetas) => allMetas.find((a) => a.user === user)));
+  }
+
+  saveMetas(user: string | undefined, metas: Metas): Observable<any> {
+    return from(
+      this.firestore
+        .collection<Metas>('metas')
+        .doc(user)
+        .set({ ...metas })
     );
   }
 

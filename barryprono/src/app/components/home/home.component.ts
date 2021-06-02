@@ -33,4 +33,12 @@ export class HomeComponent {
   goToExtras() {
     this.navController.navigateForward('extras');
   }
+
+  goToMetas() {
+    this.navController.navigateForward('metas');
+  }
+
+  goToRules() {
+    this.navController.navigateForward('rules');
+  }
 }
