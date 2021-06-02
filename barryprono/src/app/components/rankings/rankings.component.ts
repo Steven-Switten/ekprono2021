@@ -43,6 +43,9 @@ export class RankingsComponent {
   }
 
   getAvatar(user: User): string {
+    if (user.name.includes('Beating')) {
+      return 'assets/hmu2.png';
+    }
     if (user.name === 'Hendrik' || user.name.includes('Bum')) {
       return 'assets/hmu.png';
     }
@@ -56,6 +59,9 @@ export class RankingsComponent {
       return 'assets/svdb.png';
     }
     if (user.name.includes('Dutch')) {
+      return 'assets/tnx.png';
+    }
+    if (user.name.includes('Leprechaun')) {
       return 'assets/ldp.png';
     }
     if (user.name.includes('Thomas')) {
@@ -67,6 +73,7 @@ export class RankingsComponent {
     ) {
       return 'assets/tnx.png';
     }
+
     if (user.name.includes('Nick') || user.name.toLowerCase().includes('cry')) {
       return 'assets/nsw.png';
     }
