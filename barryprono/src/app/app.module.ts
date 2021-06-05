@@ -9,7 +9,7 @@ import { RankingsComponent } from './components/rankings/rankings.component';
 import { ExtrasComponent } from './components/extras/extras.component';
 import { HomeComponent } from './components/home/home.component';
 import { AngularFireModule } from '@angular/fire';
-import { UserService } from './services/user.service';
+import { DataService } from './services/data.service';
 import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { PronosComponent } from './components/pronos/pronos.component';
@@ -40,7 +40,7 @@ import { MatchItemComponent } from './components/pronos/match-item.component';
     AngularFireModule.initializeApp(environment.firebase),
     FormsModule,
   ],
-  providers: [UserService],
+  providers: [DataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

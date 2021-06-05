@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { Extras } from 'src/app/models/extras';
 import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { DataService } from 'src/app/services/data.service';
 import { getAvatar } from 'src/app/utils/avatar-util';
+import { calculatePronoScore } from 'src/app/utils/score-util';
+import { Match } from '../../models/match';
 
 @Component({
   selector: 'app-rankings',
@@ -19,12 +21,12 @@ export class RankingsComponent {
   extras: Extras[] = [];
 
   constructor(
-    private userService: UserService,
+    private dataService: DataService,
     private navController: NavController
   ) {}
 
   ionViewWillEnter() {
-    this.userService
+    this.dataService
       .getAllUsers()
       .pipe(
         map((usrs) => {
@@ -33,17 +35,18 @@ export class RankingsComponent {
             ucopy.score = u.score ?? 0;
             return ucopy;
           });
-          return users
-            .filter((u) => u.name !== 'admin')
-            .sort((m1, m2) =>
-              m1.score === m2.score ? 0 : m2.score < m1.score ? -1 : 1
-            );
+          return users.filter((u) => u.name !== 'admin');
+          // .sort((m1, m2) =>
+          //   m1.score === m2.score ? 0 : m2.score < m1.score ? -1 : 1
+          // );
         }),
         tap((usr) => (this.usersRanked = usr))
       )
-      .subscribe();
+      .subscribe(() => {
+        this.calculateScores();
+      });
 
-    this.userService
+    this.dataService
       .getAllExtras()
       .subscribe((extras) => (this.extras = extras));
   }
@@ -76,4 +79,37 @@ export class RankingsComponent {
   }
 
   goToUserDetail(user: User) {}
+
+  calculateScores() {
+    let matches: Match[] = [];
+    this.dataService
+      .getAllMatches()
+      .pipe(
+        tap((m) => (matches = m)),
+        switchMap(() => {
+          return this.dataService.getAllPronos();
+        }),
+        tap((pronos) => {
+          this.usersRanked.forEach((u) => {
+            let userScore = 0;
+            matches.forEach((m) => {
+              const prono = pronos?.find((p) => p.user === u.name);
+              if (prono) {
+                const score = calculatePronoScore(prono, m);
+                // console.log(                  'prono for match',                  m.id,                  ' user: ',                  u.name,                  ': ',                  score,                  'pt'                );
+                userScore += score;
+              }
+            });
+            u.score = userScore;
+            // TODO: extras
+          });
+        }),
+        tap(() => {
+          this.usersRanked = this.usersRanked.sort((m1, m2) =>
+            m1.score === m2.score ? 0 : m2.score < m1.score ? -1 : 1
+          );
+        })
+      )
+      .subscribe();
+  }
 }

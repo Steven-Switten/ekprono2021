@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { UserService } from 'src/app/services/user.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -10,16 +10,16 @@ import { UserService } from 'src/app/services/user.service';
 export class HomeComponent {
   name?: string;
   constructor(
-    private userService: UserService,
+    private dataService: DataService,
     private navController: NavController
   ) {}
 
   ionViewWillEnter() {
-    if (!this.userService.user) {
+    if (!this.dataService.user) {
       this.navController.navigateRoot('login');
       return;
     }
-    this.name = this.userService.user;
+    this.name = this.dataService.user;
   }
 
   goToRankings() {

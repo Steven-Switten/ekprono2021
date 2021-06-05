@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { take, tap, switchMap } from 'rxjs/operators';
 import { Match } from 'src/app/models/match';
-import { Prono } from 'src/app/models/prono';
 import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
-import { MatchService } from '../../services/match.service';
+import { DataService } from 'src/app/services/data.service';
+import { calculatePronoScore } from 'src/app/utils/score-util';
 
 @Component({
   selector: 'app-admin',
@@ -31,8 +30,7 @@ export class AdminComponent {
   allTeams: string[] = [];
 
   constructor(
-    private userService: UserService,
-    private adminService: MatchService,
+    private dataService: DataService,
     private navController: NavController
   ) {
     const arrays = Object.values(this.groups) as any[];
@@ -40,7 +38,7 @@ export class AdminComponent {
   }
 
   ionViewWillEnter() {
-    if (this.userService.user !== 'admin') {
+    if (this.dataService.user !== 'admin') {
       this.navController.navigateRoot('login');
       return;
     }
@@ -48,7 +46,7 @@ export class AdminComponent {
 
   createNewMatch() {
     this.matchToEdit = new Match();
-    this.adminService
+    this.dataService
       .getAllMatches()
       .pipe(take(1))
       .subscribe((matches) => {
@@ -62,7 +60,7 @@ export class AdminComponent {
 
   editMatch() {
     this.updatingMatch = true;
-    this.adminService
+    this.dataService
       .getAllMatches()
       .pipe(take(1))
       .subscribe((matches) => {
@@ -78,9 +76,9 @@ export class AdminComponent {
       );
     }
     if (this.creatingMatch) {
-      this.adminService.createOrUpdateMatch(this.matchToEdit);
+      this.dataService.createOrUpdateMatch(this.matchToEdit);
     }
-    // TODO: save in matchResults
+    // TODO: save in matchResults ?
     else if (this.updatingMatch) {
       this.calculateUserScores();
     }
@@ -90,7 +88,7 @@ export class AdminComponent {
   }
 
   calculateUserScores() {
-    this.userService
+    this.dataService
       .getAllUsers()
       .pipe(
         take(1),
@@ -98,79 +96,19 @@ export class AdminComponent {
           this.users = u;
         }),
         switchMap(() => {
-          return this.userService.getPronos(this.matchId);
+          return this.dataService.getPronos(this.matchId);
         }),
         tap((pronos) => {
           this.users.forEach((u) => {
             const prono = pronos?.find((p) => p.user === u.name);
             if (prono) {
-              const score = this.calculatePronoScore(prono);
+              const score = calculatePronoScore(prono, this.matchToEdit);
               console.log('prono for ', u.name, ': ', score, 'pt');
+              // TODO: save user score ?
             }
           });
         })
       )
       .subscribe();
-  }
-
-  calculatePronoScore(prono: Prono | undefined): number {
-    let totalScore = 0;
-    if (
-      !prono ||
-      !this.matchToEdit ||
-      this.matchToEdit.awayScore === undefined ||
-      this.matchToEdit.homeScore === undefined ||
-      prono.homeScore === undefined ||
-      prono.awayScore === undefined
-    ) {
-      console.log('iets niet in orde', this.matchToEdit, prono);
-      return 0;
-    }
-    const matchWinner =
-      this.matchToEdit.homeScore === this.matchToEdit.awayScore
-        ? 'draw'
-        : this.matchToEdit.homeScore > this.matchToEdit.awayScore
-        ? 'home'
-        : 'away';
-
-    const pronoWinner =
-      prono.homeScore === prono.awayScore
-        ? 'draw'
-        : prono.homeScore > prono.awayScore
-        ? 'home'
-        : 'away';
-
-    if (matchWinner === pronoWinner) {
-      totalScore += 5;
-    }
-
-    const matchGoalDiff =
-      this.matchToEdit.homeScore - this.matchToEdit.awayScore;
-    const pronoGoalDiff = prono.homeScore - prono.awayScore;
-    if (matchGoalDiff === pronoGoalDiff) {
-      totalScore += 2;
-    }
-
-    if (prono.homeScore === this.matchToEdit.homeScore) {
-      totalScore += 1;
-    }
-    if (prono.awayScore === this.matchToEdit.awayScore) {
-      totalScore += 1;
-    }
-    if (prono.firstGoalMinute === this.matchToEdit.firstGoalMinute) {
-      totalScore += 2;
-    } else if (
-      prono.firstGoalMinute ===
-        (this.matchToEdit.firstGoalMinute as number) + 1 ||
-      prono.firstGoalMinute ===
-        (this.matchToEdit.firstGoalMinute as number) + 2 ||
-      prono.firstGoalMinute ===
-        (this.matchToEdit.firstGoalMinute as number) - 1 ||
-      prono.firstGoalMinute === (this.matchToEdit.firstGoalMinute as number) - 2
-    ) {
-      totalScore += 1;
-    }
-
-    return totalScore;
   }
 }

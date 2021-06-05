@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { of, Subject } from 'rxjs';
 import { debounceTime, switchMap, take, tap } from 'rxjs/operators';
-import { UserService } from '../../services/user.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +18,13 @@ export class LoginComponent {
   checkUser$ = new Subject<string>();
 
   constructor(
-    private userService: UserService,
+    private dataService: DataService,
     private navController: NavController
   ) {
     this.checkUser$
       .pipe(
         debounceTime(400),
-        switchMap(() => this.userService.findUser(this.name as string)),
+        switchMap(() => this.dataService.findUser(this.name as string)),
         tap((user) => {
           this.userExists = !!user;
           this.realPassword = user?.password;
@@ -39,7 +39,7 @@ export class LoginComponent {
 
   login(): void {
     if (this.realPassword == this.password && this.userExists) {
-      if (this.userService.login(this.name as string)) {
+      if (this.dataService.login(this.name as string)) {
         this.navController.navigateForward('home');
       }
     } else {
@@ -48,7 +48,7 @@ export class LoginComponent {
   }
 
   register(): void {
-    this.userService
+    this.dataService
       .register(this.name as string, this.password as string)
       .then(() => {
         this.navController.navigateForward('home');

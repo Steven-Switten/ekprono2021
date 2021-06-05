@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { Extras } from 'src/app/models/extras';
-import { UserService } from 'src/app/services/user.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-extras',
@@ -27,7 +27,7 @@ export class ExtrasComponent {
   }
 
   constructor(
-    private userService: UserService,
+    private dataService: DataService,
     private navController: NavController
   ) {
     const arrays = Object.values(this.groups) as any[];
@@ -35,15 +35,15 @@ export class ExtrasComponent {
   }
 
   ionViewWillEnter() {
-    if (!this.userService.user) {
+    if (!this.dataService.user) {
       this.navController.navigateRoot('login');
       return;
     }
-    this.userService
-      .loadExtras(this.userService.user)
+    this.dataService
+      .loadExtras(this.dataService.user)
       .pipe(take(1))
       .subscribe((extras) => {
-        this.extras = extras ?? new Extras(this.userService.user as string);
+        this.extras = extras ?? new Extras(this.dataService.user as string);
       });
   }
 
@@ -53,6 +53,6 @@ export class ExtrasComponent {
   }
 
   saveChanges() {
-    this.userService.saveExtras(this.userService.user, this.extras).subscribe();
+    this.dataService.saveExtras(this.dataService.user, this.extras).subscribe();
   }
 }

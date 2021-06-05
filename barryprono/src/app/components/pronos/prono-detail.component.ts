@@ -3,9 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { take, switchMap, mapTo, tap, map } from 'rxjs/operators';
 import { Prono } from 'src/app/models/prono';
-import { User } from 'src/app/models/user';
-import { MatchService } from 'src/app/services/match.service';
-import { UserService } from 'src/app/services/user.service';
+import { DataService } from 'src/app/services/data.service';
 import { getAvatar } from 'src/app/utils/avatar-util';
 import { Match } from '../../models/match';
 
@@ -33,14 +31,13 @@ export class PronoDetailComponent {
   }
 
   constructor(
-    private userService: UserService,
-    private matchService: MatchService,
+    private dataService: DataService,
     private navController: NavController,
     private route: ActivatedRoute
   ) {}
 
   ionViewWillEnter() {
-    if (!this.userService.user) {
+    if (!this.dataService.user) {
       this.navController.navigateRoot('login');
       return;
     }
@@ -51,7 +48,7 @@ export class PronoDetailComponent {
         tap((params) => {
           this.matchId = +params.id;
         }),
-        switchMap(() => this.matchService.getAllMatches()),
+        switchMap(() => this.dataService.getAllMatches()),
         map((matches) => {
           return matches.find((m) => m.id === this.matchId);
         }),
@@ -62,20 +59,20 @@ export class PronoDetailComponent {
           this.match = match;
         }),
         switchMap(() =>
-          this.userService.getProno(this.userService.user, this.matchId)
+          this.dataService.getProno(this.dataService.user, this.matchId)
         ),
         tap((prono) => {
           if (!prono) {
             this.prono = new Prono();
             this.prono.matchId = this.matchId;
-            this.prono.user = this.userService.user;
+            this.prono.user = this.dataService.user;
           } else {
             this.prono = prono;
           }
         })
       )
       .subscribe(() => {
-        this.userService
+        this.dataService
           .getPronos(this.matchId)
           .subscribe(
             (p) =>
@@ -85,7 +82,7 @@ export class PronoDetailComponent {
   }
 
   saveProno() {
-    this.userService.saveProno(this.userService.user, this.prono).subscribe();
+    this.dataService.saveProno(this.dataService.user, this.prono).subscribe();
   }
 
   goBack() {

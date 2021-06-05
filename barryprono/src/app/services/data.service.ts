@@ -6,11 +6,12 @@ import { map, take } from 'rxjs/operators';
 import { Extras } from '../models/extras';
 import { Prono } from '../models/prono';
 import { Metas } from '../models/metas';
+import { Match } from '../models/match';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class DataService {
   user?: string;
   constructor(private firestore: AngularFirestore) {
     const storedUser = localStorage.getItem('activeuser');
@@ -121,5 +122,44 @@ export class UserService {
           );
         })
       );
+  }
+
+  getAllPronos(): Observable<Prono[]> {
+    return this.firestore
+      .collection<Prono>('pronos')
+      .valueChanges()
+      .pipe(
+        take(1),
+        map((pronos) => {
+          return pronos.filter((p) => p.user !== 'admin');
+        })
+      );
+  }
+
+  getAllMatches(): Observable<Match[]> {
+    return this.firestore
+      .collection<Match>('matches')
+      .valueChanges()
+      .pipe(
+        map((matches) => {
+          const m = matches.map((m) => {
+            const d = m.date as any;
+            m.date = new Date((d.seconds * 1000) as any);
+            return m;
+          });
+
+          m.sort((m1, m2) => (m1.id === m2.id ? 0 : m1.id < m2.id ? -1 : 1));
+          return m;
+        })
+      );
+  }
+
+  createOrUpdateMatch(match: Match): Observable<any> {
+    return from(
+      this.firestore
+        .collection<Match>('matches')
+        .doc(match.id.toString())
+        .set({ ...match })
+    );
   }
 }

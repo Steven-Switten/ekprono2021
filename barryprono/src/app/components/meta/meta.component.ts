@@ -4,7 +4,7 @@ import { take } from 'rxjs/operators';
 import { Extras } from 'src/app/models/extras';
 import { Metas } from 'src/app/models/metas';
 import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-meta',
@@ -19,24 +19,24 @@ export class MetaComponent {
   allUsers: User[] = [];
 
   constructor(
-    private userService: UserService,
+    private dataService: DataService,
     private navController: NavController
   ) {}
 
   ionViewWillEnter() {
-    if (!this.userService.user) {
+    if (!this.dataService.user) {
       this.navController.navigateRoot('login');
       return;
     }
-    this.userService
+    this.dataService
       .getAllUsers()
       .subscribe((u) => (this.allUsers = u.filter((u) => u.name !== 'admin')));
 
-    this.userService
-      .loadMetas(this.userService.user)
+    this.dataService
+      .loadMetas(this.dataService.user)
       .pipe(take(1))
       .subscribe((metas) => {
-        this.metas = metas ?? new Metas(this.userService.user as string);
+        this.metas = metas ?? new Metas(this.dataService.user as string);
       });
   }
 
@@ -46,6 +46,6 @@ export class MetaComponent {
   }
 
   saveChanges() {
-    this.userService.saveMetas(this.userService.user, this.metas).subscribe();
+    this.dataService.saveMetas(this.dataService.user, this.metas).subscribe();
   }
 }

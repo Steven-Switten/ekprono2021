@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Match } from 'src/app/models/match';
-import { UserService } from 'src/app/services/user.service';
-import { MatchService } from '../../services/match.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-pronos',
@@ -52,18 +51,17 @@ export class PronosComponent {
   }
 
   constructor(
-    private userService: UserService,
-    private matchService: MatchService,
+    private dataService: DataService,
     private navController: NavController
   ) {}
 
   ionViewWillEnter() {
-    if (!this.userService.user) {
+    if (!this.dataService.user) {
       this.navController.navigateRoot('login');
       return;
     }
 
-    this.matchService.getAllMatches().subscribe((matches) => {
+    this.dataService.getAllMatches().subscribe((matches) => {
       this.allMatches = matches;
     });
   }
