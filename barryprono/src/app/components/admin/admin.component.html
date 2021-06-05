@@ -3,13 +3,28 @@
     <ion-title>Admin page</ion-title>
   </ion-toolbar> </ion-header
 ><ion-content forceOverscroll="false">
-  <ion-button *ngIf="!creatingMatch" (click)="createNewMatch()"
+  <ion-button
+    *ngIf="!creatingMatch && !updatingMatch"
+    (click)="createNewMatch()"
     >Create match</ion-button
   >
-  <div *ngIf="creatingMatch">
+  <ion-item *ngIf="!creatingMatch && !updatingMatch">
+    <ion-label position="stacked">Match Id</ion-label>
+    <ion-input [(ngModel)]="matchId" type="number"> </ion-input>
+  </ion-item>
+  <ion-button
+    *ngIf="!creatingMatch && !updatingMatch && matchId"
+    (click)="editMatch()"
+    >Edit match</ion-button
+  >
+  <div *ngIf="creatingMatch || updatingMatch">
     <ion-item>
       <ion-label position="stacked">Home</ion-label>
-      <ion-select [(ngModel)]="matchToEdit.homeTeam" interface="popover">
+      <ion-select
+        [disabled]="updatingMatch"
+        [(ngModel)]="matchToEdit.homeTeam"
+        interface="popover"
+      >
         <ion-select-option *ngFor="let team of allTeams" [value]="team">{{
           team
         }}</ion-select-option>
@@ -17,7 +32,11 @@
     >
     <ion-item>
       <ion-label position="stacked">Away</ion-label>
-      <ion-select [(ngModel)]="matchToEdit.awayTeam" interface="popover">
+      <ion-select
+        [disabled]="updatingMatch"
+        [(ngModel)]="matchToEdit.awayTeam"
+        interface="popover"
+      >
         <ion-select-option *ngFor="let team of allTeams" [value]="team">{{
           team
         }}</ion-select-option>
@@ -25,12 +44,29 @@
     >
     <ion-item>
       <ion-label position="stacked">Date</ion-label>
-      <ion-input [(ngModel)]="dateString"> </ion-input>
+      <ion-input [disabled]="updatingMatch" [(ngModel)]="dateString">
+      </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Time</ion-label
-      ><ion-input [(ngModel)]="matchToEdit.time"> </ion-input>
+      ><ion-input [disabled]="updatingMatch" [(ngModel)]="matchToEdit.time">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">{{ matchToEdit?.homeTeam }}</ion-label>
+      <ion-input [(ngModel)]="matchToEdit.homeScore" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">{{ matchToEdit?.awayTeam }}</ion-label>
+      <ion-input [(ngModel)]="matchToEdit.awayScore" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Eerste goal minuut</ion-label>
+      <ion-input
+        [(ngModel)]="matchToEdit.firstGoalMinute"
+        type="number"
+      ></ion-input>
     </ion-item>
     <ion-button (click)="saveMatch()">Save</ion-button>
   </div>

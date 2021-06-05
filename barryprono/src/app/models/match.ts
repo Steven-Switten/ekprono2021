@@ -5,7 +5,7 @@ export class Match {
   date?: Date;
   time = '00:00';
 
-  scoreAway?: string;
-  scoreHome?: string;
-  winner?: string;
+  awayScore?: number;
+  homeScore?: number;
+  firstGoalMinute?: number;
 }

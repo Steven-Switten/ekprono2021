@@ -101,4 +101,16 @@ export class UserService {
         })
       );
   }
+
+  getPronos(matchId: number | undefined): Observable<Prono[] | undefined> {
+    return this.firestore
+      .collection<Prono>('pronos')
+      .valueChanges()
+      .pipe(
+        take(1),
+        map((pronos) => {
+          return pronos.filter((p) => p.matchId === matchId);
+        })
+      );
+  }
 }
