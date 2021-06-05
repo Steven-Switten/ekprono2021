@@ -53,6 +53,13 @@ export class UserService {
       .pipe(map((allExtras) => allExtras.find((a) => a.user === user)));
   }
 
+  getAllExtras(): Observable<Extras[]> {
+    return this.firestore
+      .collection<Extras>('challenges')
+      .valueChanges()
+      .pipe(take(1));
+  }
+
   saveExtras(user: string | undefined, extras: Extras): Observable<any> {
     return from(
       this.firestore
@@ -102,14 +109,16 @@ export class UserService {
       );
   }
 
-  getPronos(matchId: number | undefined): Observable<Prono[] | undefined> {
+  getPronos(matchId: number | undefined): Observable<Prono[]> {
     return this.firestore
       .collection<Prono>('pronos')
       .valueChanges()
       .pipe(
         take(1),
         map((pronos) => {
-          return pronos.filter((p) => p.matchId === matchId);
+          return pronos.filter(
+            (p) => p.matchId === matchId && p.user !== 'admin'
+          );
         })
       );
   }

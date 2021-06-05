@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { map, tap } from 'rxjs/operators';
+import { Extras } from 'src/app/models/extras';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { getAvatar } from 'src/app/utils/avatar-util';
 
 @Component({
   selector: 'app-rankings',
@@ -11,6 +13,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RankingsComponent {
   usersRanked: User[] = [];
+  get isDeadLinePast(): boolean {
+    return new Date(2021, 5, 11, 21, 0, 0) <= new Date();
+  }
+  extras: Extras[] = [];
 
   constructor(
     private userService: UserService,
@@ -36,6 +42,10 @@ export class RankingsComponent {
         tap((usr) => (this.usersRanked = usr))
       )
       .subscribe();
+
+    this.userService
+      .getAllExtras()
+      .subscribe((extras) => (this.extras = extras));
   }
 
   goBack() {
@@ -43,51 +53,7 @@ export class RankingsComponent {
   }
 
   getAvatar(user: User): string {
-    if (user.name.includes('Beating')) {
-      return 'assets/hmu2.png';
-    }
-    if (user.name === 'Hendrik' || user.name.includes('Bum')) {
-      return 'assets/hmu.png';
-    }
-    if (user.name.includes('Switten')) {
-      return 'assets/ssw.png';
-    }
-    if (user.name.includes('Pieter')) {
-      return 'assets/pvh.png';
-    }
-    if (user.name.includes('Steven')) {
-      return 'assets/svdb.png';
-    }
-    if (user.name.includes('Dutch')) {
-      return 'assets/tnx.png';
-    }
-    if (user.name.includes('Leprechaun')) {
-      return 'assets/ldp.png';
-    }
-    if (user.name.includes('Thomas')) {
-      return 'assets/tfo.png';
-    }
-    if (
-      user.name.includes('Tjang') ||
-      user.name.toUpperCase().includes('TNX')
-    ) {
-      return 'assets/tnx.png';
-    }
-
-    if (user.name.includes('Nick') || user.name.toLowerCase().includes('cry')) {
-      return 'assets/nsw.png';
-    }
-    if (user.name.includes('Bert') || user.name.includes('Berry')) {
-      return 'assets/bvdn.png';
-    }
-    if (
-      user.name.toLowerCase().includes('floris') ||
-      user.name.toLowerCase().includes('ranzi')
-    ) {
-      return 'assets/ffr.png';
-    }
-
-    return '';
+    return getAvatar(user.name);
   }
 
   isKneusje(user: User): boolean {
@@ -96,4 +62,18 @@ export class RankingsComponent {
     }
     return this.usersRanked.indexOf(user) === this.usersRanked.length - 1;
   }
+
+  getCountry(user: User): string | undefined {
+    const country = this.extras
+      .find((e) => e.user === user.name)
+      ?.winnerAll?.toLowerCase();
+
+    console.log('country', country, user.name);
+    if (country) {
+      return `assets/flags/${country}.png`;
+    }
+    return ``;
+  }
+
+  goToUserDetail(user: User) {}
 }

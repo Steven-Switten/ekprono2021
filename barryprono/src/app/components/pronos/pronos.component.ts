@@ -7,7 +7,6 @@ import { MatchService } from '../../services/match.service';
 @Component({
   selector: 'app-pronos',
   templateUrl: './pronos.component.html',
-  styleUrls: ['./pronos.component.scss'],
 })
 export class PronosComponent {
   allMatches: Match[] = [];

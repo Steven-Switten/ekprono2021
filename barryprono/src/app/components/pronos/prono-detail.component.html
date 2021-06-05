@@ -11,20 +11,34 @@
   ></ion-toolbar> </ion-header
 ><ion-content forceOverscroll="false">
   <ion-item>
-    <ion-label position="stacked">{{ match?.homeTeam }}</ion-label>
-    <ion-input
-      [disabled]="hasDeadlinePassed"
-      [(ngModel)]="prono.homeScore"
-      type="number"
-    ></ion-input>
+    <div class="flex-row row">
+      <ion-avatar class="country">
+        <img *ngIf="match" [src]="getCountryAvatar(match.homeTeam)" />
+      </ion-avatar>
+      <div class="flex-column">
+        <ion-label position="stacked">{{ match?.homeTeam }}</ion-label>
+        <ion-input
+          [disabled]="hasDeadlinePassed"
+          [(ngModel)]="prono.homeScore"
+          type="number"
+        ></ion-input>
+      </div>
+    </div>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">{{ match?.awayTeam }}</ion-label>
-    <ion-input
-      [disabled]="hasDeadlinePassed"
-      [(ngModel)]="prono.awayScore"
-      type="number"
-    ></ion-input>
+    <div class="flex-row row">
+      <ion-avatar class="country">
+        <img *ngIf="match" [src]="getCountryAvatar(match.awayTeam)" />
+      </ion-avatar>
+      <div class="flex-column">
+        <ion-label position="stacked">{{ match?.awayTeam }}</ion-label>
+        <ion-input
+          [disabled]="hasDeadlinePassed"
+          [(ngModel)]="prono.awayScore"
+          type="number"
+        ></ion-input>
+      </div>
+    </div>
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Eerste goal minuut</ion-label>
@@ -34,4 +48,20 @@
       type="number"
     ></ion-input>
   </ion-item>
+  <div *ngIf="hasDeadlinePassed" class="w-100pct">
+    <ion-item
+      ><div class="flex-row space-between w-100pct flex-align-center m-5">
+        <span></span><span>Pronos van de rest</span><span></span></div
+    ></ion-item>
+    <ion-item *ngFor="let prono of otherPronos">
+      <div class="flex-row space-between w-100pct flex-align-center m-5">
+        <ion-avatar slot="start">
+          <img [src]="getAvatar(prono?.user ?? '')" />
+        </ion-avatar>
+        <span slot="start"
+          >{{ prono.user }}: {{ prono.homeScore }} - {{ prono.awayScore }}</span
+        ><span></span><span slot="end">{{ prono.firstGoalMinute }}'</span>
+      </div>
+    </ion-item>
+  </div>
 </ion-content>

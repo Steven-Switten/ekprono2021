@@ -28,14 +28,7 @@
       [ngClass]="{ 'accordion--hide': showFirstMatchDay === false }"
     >
       <div *ngFor="let match of firstMatches">
-        <ion-item (click)="goToMatch(match)">
-          <ion-label
-            ><h3>{{ match.homeTeam }} - {{ match.awayTeam }}</h3>
-            <p>{{ match.date | date: "dd/MM - HH:mm" }}</p>
-          </ion-label>
-
-          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-        </ion-item>
+        <app-match-item class="w-100pct" [match]="match"></app-match-item>
       </div>
     </ion-item-group>
     <ion-list-header>
@@ -58,10 +51,7 @@
       [ngClass]="{ 'accordion--hide': showSecondMatchDay === false }"
     >
       <div *ngFor="let match of secondMatches">
-        <ion-item (click)="goToMatch(match)">
-          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
-          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-        </ion-item>
+        <app-match-item class="w-100pct" [match]="match"></app-match-item>
       </div>
     </ion-item-group>
     <ion-list-header>
@@ -84,10 +74,7 @@
       [ngClass]="{ 'accordion--hide': showThirdMatchDay === false }"
     >
       <div *ngFor="let match of thirdMatches">
-        <ion-item (click)="goToMatch(match)">
-          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
-          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-        </ion-item>
+        <app-match-item class="w-100pct" [match]="match"></app-match-item>
       </div>
     </ion-item-group>
     <ion-list-header>
@@ -110,10 +97,7 @@
       [ngClass]="{ 'accordion--hide': showKnockOutMatches === false }"
     >
       <div *ngFor="let match of knockOutMatches">
-        <ion-item (click)="goToMatch(match)">
-          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
-          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-        </ion-item>
+        <app-match-item class="w-100pct" [match]="match"></app-match-item>
       </div>
     </ion-item-group>
     <ion-list-header>
@@ -136,36 +120,19 @@
       [ngClass]="{ 'accordion--hide': showQuarterFinals === false }"
     >
       <div *ngFor="let match of quarterFinals">
-        <ion-item (click)="goToMatch(match)">
-          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
-          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-        </ion-item>
+        <app-match-item class="w-100pct" [match]="match"></app-match-item>
       </div>
     </ion-item-group>
     <ion-list-header> <h2>Halve finales</h2></ion-list-header>
     <ion-item-group>
       <div *ngFor="let match of semiFinals">
-        <ion-item (click)="goToMatch(match)">
-          <ion-label>{{ match.homeTeam }} - {{ match.awayTeam }}</ion-label>
-          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-        </ion-item>
+        <app-match-item class="w-100pct" [match]="match"></app-match-item>
       </div>
     </ion-item-group>
-    <ion-list-header><h2>Match voor 3e plaats</h2> </ion-list-header>
-    <ion-item-group *ngIf="smallFinal">
-      <ion-item (click)="goToMatch(smallFinal)">
-        <ion-label
-          >{{ smallFinal.homeTeam }} - {{ smallFinal.awayTeam }}</ion-label
-        >
-        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-      </ion-item>
-    </ion-item-group>
+
     <ion-list-header><h2>Finale</h2> </ion-list-header>
     <ion-item-group *ngIf="final">
-      <ion-item (click)="goToMatch(final)">
-        <ion-label>{{ final.homeTeam }} - {{ final.awayTeam }}</ion-label>
-        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-      </ion-item>
+      <app-match-item class="w-100pct" [match]="final"></app-match-item>
     </ion-item-group>
   </ion-list>
 </ion-content>

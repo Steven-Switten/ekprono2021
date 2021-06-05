@@ -3,14 +3,24 @@
 }
 
 .winner {
-  h2 {
+  span {
     font-weight: 600;
     font-size: 18px;
   }
 }
 
 .kneus {
-  h2 {
-    font-size: 14px !important;
+  i {
+    font-size: 13px !important;
   }
+}
+
+.name {
+  font-size: 15px !important;
+}
+
+.country {
+  height: 32px;
+  width: 32px;
+  margin-right: 15px;
 }

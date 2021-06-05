@@ -24,10 +24,19 @@
         <img [src]="getAvatar(user)" />
       </ion-avatar>
       <ion-label>
-        <h2 *ngIf="!isKneusje(user)">- {{ user.name }}</h2>
+        <span class="name" *ngIf="!isKneusje(user)">- {{ user.name }}</span>
         <i *ngIf="isKneusje(user)">- {{ user.name }}</i>
       </ion-label>
-      <b slot="end">{{ user.score }} pt</b>
+      <div slot="end" class="flex-row flex-center">
+        <ion-avatar
+          slot="start"
+          class="country"
+          *ngIf="isDeadLinePast && !!getCountry(user)"
+        >
+          <img [src]="getCountry(user)" />
+        </ion-avatar>
+        <b>{{ user.score }} pt</b>
+      </div>
     </ion-item></ion-list
   >
 </ion-content>

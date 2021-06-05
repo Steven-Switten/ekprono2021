@@ -17,6 +17,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { PronoDetailComponent } from './components/pronos/prono-detail.component';
 import { MetaComponent } from './components/meta/meta.component';
 import { RulesComponent } from './components/rules/rules.component';
+import { MatchItemComponent } from './components/pronos/match-item.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { RulesComponent } from './components/rules/rules.component';
     PronoDetailComponent,
     MetaComponent,
     RulesComponent,
+    MatchItemComponent,
   ],
   imports: [
     BrowserModule,

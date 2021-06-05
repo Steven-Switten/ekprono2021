@@ -3,8 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { take, switchMap, mapTo, tap, map } from 'rxjs/operators';
 import { Prono } from 'src/app/models/prono';
+import { User } from 'src/app/models/user';
 import { MatchService } from 'src/app/services/match.service';
 import { UserService } from 'src/app/services/user.service';
+import { getAvatar } from 'src/app/utils/avatar-util';
 import { Match } from '../../models/match';
 
 @Component({
@@ -16,6 +18,7 @@ export class PronoDetailComponent {
   match?: Match;
   matchId?: number;
   prono: Prono = new Prono();
+  otherPronos: Prono[] = [];
 
   get isPronoValid(): boolean {
     return (
@@ -71,7 +74,14 @@ export class PronoDetailComponent {
           }
         })
       )
-      .subscribe(() => {});
+      .subscribe(() => {
+        this.userService
+          .getPronos(this.matchId)
+          .subscribe(
+            (p) =>
+              (this.otherPronos = p.filter((pr) => pr.user !== this.prono.user))
+          );
+      });
   }
 
   saveProno() {
@@ -83,5 +93,13 @@ export class PronoDetailComponent {
       this.saveProno();
     }
     this.navController.navigateBack('pronos');
+  }
+
+  getCountryAvatar(country: string) {
+    return `assets/flags/${country.toLowerCase()}.png`;
+  }
+
+  getAvatar(user: string): string {
+    return getAvatar(user);
   }
 }
