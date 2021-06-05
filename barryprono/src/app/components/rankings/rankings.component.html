@@ -9,13 +9,23 @@
   > </ion-header
 ><ion-content forceOverscroll="false">
   <ion-list>
-    <ion-item *ngFor="let user of usersRanked">
-      <b class="rank">{{ usersRanked.indexOf(user) + 1 }}</b>
+    <ion-item
+      *ngFor="let user of usersRanked"
+      [ngClass]="{
+        winner: usersRanked.indexOf(user) === 0,
+        kneus: isKneusje(user)
+      }"
+    >
+      <b class="rank" *ngIf="!isKneusje(user)">{{
+        usersRanked.indexOf(user) + 1
+      }}</b>
+      <b class="rank" *ngIf="isKneusje(user)">Kneusje</b>
       <ion-avatar slot="start">
         <img [src]="getAvatar(user)" />
       </ion-avatar>
       <ion-label>
-        <h2>- {{ user.name }}</h2>
+        <h2 *ngIf="!isKneusje(user)">- {{ user.name }}</h2>
+        <i *ngIf="isKneusje(user)">- {{ user.name }}</i>
       </ion-label>
       <b slot="end">{{ user.score }} pt</b>
     </ion-item></ion-list

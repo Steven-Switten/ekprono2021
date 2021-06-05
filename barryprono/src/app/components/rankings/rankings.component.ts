@@ -89,4 +89,11 @@ export class RankingsComponent {
 
     return '';
   }
+
+  isKneusje(user: User): boolean {
+    if (this.usersRanked.every((u) => u.score === 0)) {
+      return false;
+    }
+    return this.usersRanked.indexOf(user) === this.usersRanked.length - 1;
+  }
 }
