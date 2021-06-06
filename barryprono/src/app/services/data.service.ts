@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Extras } from '../models/extras';
 import { Prono } from '../models/prono';
@@ -91,7 +91,7 @@ export class DataService {
       this.firestore
         .collection<Prono>('pronos')
         .doc(`${user}-${prono.matchId}`)
-        .set({ ...prono })
+        .set({ ...prono } as any)
     );
   }
 

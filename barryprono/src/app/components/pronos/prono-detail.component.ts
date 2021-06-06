@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { take, switchMap, mapTo, tap, map } from 'rxjs/operators';
+import { take, switchMap, tap, map } from 'rxjs/operators';
 import { Prono } from 'src/app/models/prono';
 import { DataService } from 'src/app/services/data.service';
 import { getAvatar } from 'src/app/utils/avatar-util';
 import { Match } from '../../models/match';
+import { calculatePronoScore } from '../../utils/score-util';
 
 @Component({
   selector: 'app-prono-detail',
@@ -17,6 +18,7 @@ export class PronoDetailComponent {
   matchId?: number;
   prono: Prono = new Prono();
   otherPronos: Prono[] = [];
+  pronoScore = 0;
 
   get isPronoValid(): boolean {
     return (
@@ -68,6 +70,12 @@ export class PronoDetailComponent {
             this.prono.user = this.dataService.user;
           } else {
             this.prono = prono;
+          }
+        }),
+
+        tap(() => {
+          if (this.hasDeadlinePassed) {
+            this.pronoScore = calculatePronoScore(this.prono, this.match);
           }
         })
       )

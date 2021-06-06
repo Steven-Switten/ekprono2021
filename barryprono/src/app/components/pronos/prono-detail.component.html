@@ -48,6 +48,10 @@
       type="number"
     ></ion-input>
   </ion-item>
+  <ion-item *ngIf="hasDeadlinePassed">
+    <ion-label position="stacked">Punten gehaald</ion-label>
+    <span class="m-5">{{ pronoScore }}</span></ion-item
+  >
   <div *ngIf="hasDeadlinePassed" class="w-100pct">
     <ion-item
       ><div class="flex-row space-between w-100pct flex-align-center m-5">

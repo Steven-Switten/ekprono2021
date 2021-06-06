@@ -36,9 +36,6 @@ export class RankingsComponent {
             return ucopy;
           });
           return users.filter((u) => u.name !== 'admin');
-          // .sort((m1, m2) =>
-          //   m1.score === m2.score ? 0 : m2.score < m1.score ? -1 : 1
-          // );
         }),
         tap((usr) => (this.usersRanked = usr))
       )

@@ -1,7 +1,6 @@
 export class Extras {
   fourthPlace = '';
   loserA = '';
-  loserAll = '';
   loserB = '';
   loserC = '';
   loserD = '';
