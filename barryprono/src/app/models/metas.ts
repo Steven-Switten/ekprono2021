@@ -9,5 +9,6 @@ export class Metas {
 
   constructor(user: string) {
     this.user = user;
+    this.bumOrSwiggy = 'swiggy';
   }
 }

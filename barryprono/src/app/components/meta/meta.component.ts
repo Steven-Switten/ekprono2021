@@ -31,10 +31,11 @@ export class MetaComponent {
     this.dataService
       .getAllUsers()
       .subscribe((u) => (this.allUsers = u.filter((u) => u.name !== 'admin')));
+  }
 
+  ionViewDidEnter() {
     this.dataService
-      .loadMetas(this.dataService.user)
-      .pipe(take(1))
+      .loadMetas(this.dataService.user as string)
       .subscribe((metas) => {
         this.metas = metas ?? new Metas(this.dataService.user as string);
       });
