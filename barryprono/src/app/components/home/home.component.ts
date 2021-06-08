@@ -113,7 +113,7 @@ export class HomeComponent {
     delta -= minutes * 60;
 
     // what's left is seconds
-    var seconds = Math.floor(delta % 60); // in theory the modulus is not required
+    const seconds = Math.floor(delta);
     this.timeUntilNextMatch = `${days} ${
       days === 1 ? 'dag' : 'dagen'
     }, ${hours} ${hours === 1 ? 'uur' : 'uren'}, ${minutes} ${
