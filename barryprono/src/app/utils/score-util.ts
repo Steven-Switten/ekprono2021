@@ -14,7 +14,6 @@ export function calculatePronoScore(
     prono.homeScore === undefined ||
     prono.awayScore === undefined
   ) {
-    console.log('iets niet in orde', matchResult, prono);
     return 0;
   }
   const matchWinner =

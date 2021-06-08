@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { interval } from 'rxjs';
+import { startWith, tap } from 'rxjs/operators';
+import { Match } from 'src/app/models/match';
 import { DataService } from 'src/app/services/data.service';
 import { Extras } from '../../models/extras';
 import { Metas } from '../../models/metas';
@@ -13,6 +16,8 @@ export class HomeComponent {
   name?: string;
   userExtras?: Extras;
   userMetas?: Metas;
+  matches: Match[] = [];
+  timeUntilNextMatch: string = '';
 
   get extrasMissing(): boolean {
     if (!this.userExtras) {
@@ -69,6 +74,51 @@ export class HomeComponent {
     this.dataService
       .loadMetas(this.name)
       .subscribe((e) => (this.userMetas = e));
+
+    this.dataService.getAllMatches().subscribe((e) => {
+      this.matches = e;
+      // TODO: interval 1000
+      interval(1000)
+        .pipe(
+          startWith(0),
+          tap(() => {
+            this.setTimeUntilNextMatch();
+          })
+        )
+        .subscribe();
+    });
+  }
+
+  private setTimeUntilNextMatch() {
+    const now = new Date();
+    const nextMatchDate =
+      this.matches
+        .map((m) => m.date?.valueOf())
+        .filter((m) => m && m > now.valueOf())
+        .sort()[0] ?? new Date().valueOf();
+
+    // get total seconds between the times
+    let delta = Math.abs(nextMatchDate - now.valueOf()) / 1000;
+
+    // calculate (and subtract) whole days
+    const days = Math.floor(delta / 86400);
+    delta -= days * 86400;
+
+    // calculate (and subtract) whole hours
+    const hours = Math.floor(delta / 3600) % 24;
+    delta -= hours * 3600;
+
+    // calculate (and subtract) whole minutes
+    const minutes = Math.floor(delta / 60) % 60;
+    delta -= minutes * 60;
+
+    // what's left is seconds
+    var seconds = Math.floor(delta % 60); // in theory the modulus is not required
+    this.timeUntilNextMatch = `${days} ${
+      days === 1 ? 'dag' : 'dagen'
+    }, ${hours} ${hours === 1 ? 'uur' : 'uren'}, ${minutes} ${
+      minutes === 1 ? 'minuut' : 'minuten'
+    }, ${seconds} ${seconds === 1 ? 'seconde' : 'seconden'}`;
   }
 
   goToRankings() {

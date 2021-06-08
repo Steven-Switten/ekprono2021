@@ -3,6 +3,8 @@
     ><ion-title>Ghello {{ name }}</ion-title></ion-toolbar
   > </ion-header
 ><ion-content forceOverscroll="false">
+  <ion-item lines="none"><b>Volgende match over:</b> </ion-item>
+  <ion-item class="missing">{{ timeUntilNextMatch }}</ion-item>
   <ion-item (click)="goToRankings()">
     Tussenstand <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
   ></ion-item>
