@@ -1,0 +1,170 @@
+<ion-header>
+  <ion-toolbar color="primary"
+    ><ion-buttons slot="start"
+      ><ion-button (click)="goBack()"
+        ><ion-icon name="arrow-back-outline"></ion-icon></ion-button
+    ></ion-buttons>
+    <ion-title>{{ userName }}</ion-title>
+  </ion-toolbar> </ion-header
+><ion-content forceOverscroll="false">
+  <ion-item lines="none">
+    <ion-avatar style="margin-right: 10px">
+      <img [src]="getAvatar(userName)" />
+    </ion-avatar>
+    <div *ngIf="!isDeadLinePast">Data komt zodra 1e match begint</div>
+    <div *ngIf="isDeadLinePast">{{ userName }}</div>
+  </ion-item>
+
+  <div *ngIf="isDeadLinePast">
+    <ion-item
+      ><span>Winnaar het EK:</span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.winnerAll
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.winnerAll)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Wie wordt 2e:</span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.secondPlace
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.secondPlace)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Wie wordt 3e/4e:</span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.thirdPlace
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.thirdPlace)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Wie wordt 3e/4e:</span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.fourthPlace
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.fourthPlace)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Winnaar groep A: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.winnerA
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.winnerA)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Winnaar groep B:</span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.winnerB
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.winnerB)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Winnaar groep C:</span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.winnerC
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.winnerC)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Winnaar groep D:</span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.winnerD
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.winnerD)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Winnaar groep E:</span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.winnerE
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.winnerE)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Winnaar groep F:</span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.winnerF
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.winnerF)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Laatst in groep A: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.loserA
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.loserA)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Laatst in groep B: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.loserB
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.loserB)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Laatst in groep C: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.loserC
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.loserC)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Laatst in groep D: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.loserD
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.loserD)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Laatst in groep E: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.loserE
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.loserE)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Laatst in groep F: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ extras?.loserF
+        }}<ion-avatar class="country"
+          ><img [src]="getFlag(extras?.loserF)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Winner Barryprono: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ metas?.winner
+        }}<ion-avatar class="country"
+          ><img [src]="getAvatar(metas?.winner)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Kneusje Barryprono: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ metas?.loser
+        }}<ion-avatar class="country"
+          ><img [src]="getAvatar(metas?.loser)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Lucky bruft: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ metas?.lucky
+        }}<ion-avatar class="country"
+          ><img [src]="getAvatar(metas?.lucky)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Altijd pech: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ metas?.unlucky
+        }}<ion-avatar class="country"
+          ><img [src]="getAvatar(metas?.unlucky)" /></ion-avatar></span
+    ></ion-item>
+    <ion-item
+      ><span>Bum or swiggy?: </span>
+      <span slot="end" class="flex-row flex-center"
+        >{{ metas?.bumOrSwiggy
+        }}<ion-avatar class="country"
+          ><img
+            [src]="
+              getAvatarBumOrSwiggy(metas?.bumOrSwiggy)
+            " /></ion-avatar></span
+    ></ion-item>
+  </div>
+</ion-content>

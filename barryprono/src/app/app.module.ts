@@ -18,6 +18,7 @@ import { PronoDetailComponent } from './components/pronos/prono-detail.component
 import { MetaComponent } from './components/meta/meta.component';
 import { RulesComponent } from './components/rules/rules.component';
 import { MatchItemComponent } from './components/pronos/match-item.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatchItemComponent } from './components/pronos/match-item.component';
     MetaComponent,
     RulesComponent,
     MatchItemComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

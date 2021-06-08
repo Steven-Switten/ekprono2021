@@ -74,7 +74,13 @@ export class RankingsComponent {
     return ``;
   }
 
-  goToUserDetail(user: User) {}
+  goToUserDetail(user: string) {
+    console.log('toon pagina van ', user);
+    if (user.includes('BeatingBumBeirt')) {
+      user = 'BeatingBumBeirt';
+    }
+    this.navController.navigateForward(`users/${user}`);
+  }
 
   calculateScores() {
     let matches: Match[] = [];

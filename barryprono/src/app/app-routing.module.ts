@@ -9,6 +9,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { PronoDetailComponent } from './components/pronos/prono-detail.component';
 import { MetaComponent } from './components/meta/meta.component';
 import { RulesComponent } from './components/rules/rules.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   {
@@ -43,7 +44,10 @@ const routes: Routes = [
     path: 'pronos/detail/:id',
     component: PronoDetailComponent,
   },
-
+  {
+    path: 'users/:id',
+    component: UserComponent,
+  },
   {
     path: 'extras',
     component: ExtrasComponent,

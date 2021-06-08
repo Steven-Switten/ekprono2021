@@ -10,6 +10,7 @@
 ><ion-content forceOverscroll="false">
   <ion-list>
     <ion-item
+      (click)="goToUserDetail(user.name)"
       *ngFor="let user of usersRanked"
       [ngClass]="{
         winner: usersRanked.indexOf(user) === 0,

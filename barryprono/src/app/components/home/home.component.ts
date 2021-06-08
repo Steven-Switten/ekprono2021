@@ -77,7 +77,6 @@ export class HomeComponent {
 
     this.dataService.getAllMatches().subscribe((e) => {
       this.matches = e;
-      // TODO: interval 1000
       interval(1000)
         .pipe(
           startWith(0),
