@@ -44,10 +44,12 @@ export class MatchItemComponent implements OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.match) {
+    if (changes.match && !this.prono) {
       this.dataService
         .getProno(this.dataService.user, this.match.id)
-        .subscribe((p) => (this.prono = p));
+        .subscribe((p) => {
+          this.prono = p;
+        });
     }
   }
 

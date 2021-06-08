@@ -103,7 +103,6 @@ export class DataService {
       .collection<Prono>('pronos')
       .valueChanges()
       .pipe(
-        take(1),
         map((pronos) => {
           return pronos.find((p) => p.matchId === matchId && p.user === user);
         })

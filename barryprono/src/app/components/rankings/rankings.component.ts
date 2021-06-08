@@ -68,7 +68,6 @@ export class RankingsComponent {
       .find((e) => e.user === user.name)
       ?.winnerAll?.toLowerCase();
 
-    console.log('country', country, user.name);
     if (country) {
       return `assets/flags/${country}.png`;
     }
