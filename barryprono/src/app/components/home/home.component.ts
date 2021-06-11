@@ -115,7 +115,7 @@ export class HomeComponent {
     const seconds = Math.floor(delta);
     this.timeUntilNextMatch = `${days} ${
       days === 1 ? 'dag' : 'dagen'
-    }, ${hours} ${hours === 1 ? 'uur' : 'uren'}, ${minutes} ${
+    }, ${hours} uur, ${minutes} ${
       minutes === 1 ? 'minuut' : 'minuten'
     }, ${seconds} ${seconds === 1 ? 'seconde' : 'seconden'}`;
   }

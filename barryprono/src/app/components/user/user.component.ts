@@ -28,7 +28,7 @@ export class UserComponent {
   ) {}
 
   goBack() {
-    this.navController.navigateBack('home');
+    this.navController.navigateBack('rankings');
   }
 
   ionViewWillEnter() {
