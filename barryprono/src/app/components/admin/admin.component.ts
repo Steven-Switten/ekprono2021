@@ -81,6 +81,7 @@ export class AdminComponent {
     // TODO: save in matchResults ?
     else if (this.updatingMatch) {
       this.calculateUserScores();
+      this.dataService.createOrUpdateMatch(this.matchToEdit);
     }
 
     this.creatingMatch = false;
@@ -103,7 +104,7 @@ export class AdminComponent {
             const prono = pronos?.find((p) => p.user === u.name);
             if (prono) {
               const score = calculatePronoScore(prono, this.matchToEdit);
-              console.log('prono for ', u.name, ': ', score, 'pt');
+              // console.log('prono for ', u.name, ': ', score, 'pt');
               // TODO: save user score ?
             }
           });

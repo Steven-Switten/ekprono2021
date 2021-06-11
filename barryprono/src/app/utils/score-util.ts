@@ -46,15 +46,17 @@ export function calculatePronoScore(
   if (prono.awayScore === matchResult.awayScore) {
     totalScore += 1;
   }
-  if (prono.firstGoalMinute === matchResult.firstGoalMinute) {
-    totalScore += 2;
-  } else if (
-    prono.firstGoalMinute === (matchResult.firstGoalMinute as number) + 1 ||
-    prono.firstGoalMinute === (matchResult.firstGoalMinute as number) + 2 ||
-    prono.firstGoalMinute === (matchResult.firstGoalMinute as number) - 1 ||
-    prono.firstGoalMinute === (matchResult.firstGoalMinute as number) - 2
-  ) {
-    totalScore += 1;
+  if (matchResult.firstGoalMinute !== null) {
+    if (prono.firstGoalMinute === matchResult.firstGoalMinute) {
+      totalScore += 2;
+    } else if (
+      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) + 1 ||
+      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) + 2 ||
+      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) - 1 ||
+      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) - 2
+    ) {
+      totalScore += 1;
+    }
   }
 
   return totalScore;
