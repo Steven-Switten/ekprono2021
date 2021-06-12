@@ -68,4 +68,18 @@
       </div>
     </ion-item>
   </div>
+  <div *ngIf="!hasDeadlinePassed && usersNotDone.length > 0" class="w-100pct">
+    <ion-item>
+      <div class="flex-row space-between w-100pct flex-align-center m-5">
+        <span></span><b>Nog niet in orde:</b><span></span></div
+    ></ion-item>
+    <ion-item *ngFor="let user of usersNotDone">
+      <div class="flex-row space-between w-100pct flex-align-center m-5">
+        <ion-avatar slot="start">
+          <img [src]="getAvatar(user)" />
+        </ion-avatar>
+        <span>{{ user }}</span>
+      </div>
+    </ion-item>
+  </div>
 </ion-content>

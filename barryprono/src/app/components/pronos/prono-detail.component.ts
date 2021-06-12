@@ -7,6 +7,7 @@ import { DataService } from 'src/app/services/data.service';
 import { getAvatar } from 'src/app/utils/avatar-util';
 import { Match } from '../../models/match';
 import { calculatePronoScore } from '../../utils/score-util';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-prono-detail',
@@ -19,6 +20,8 @@ export class PronoDetailComponent {
   prono: Prono = new Prono();
   otherPronos: Prono[] = [];
   pronoScore = 0;
+  usersNotDone: string[] = [];
+  allUsers: User[] = [];
 
   get isPronoValid(): boolean {
     return (
@@ -77,15 +80,27 @@ export class PronoDetailComponent {
           if (this.hasDeadlinePassed) {
             this.pronoScore = calculatePronoScore(this.prono, this.match);
           }
+        }),
+        switchMap(() => this.dataService.getAllUsers()),
+        tap((users) => {
+          this.allUsers = users.filter(
+            (u: User) => u.name !== 'admin' && u.name !== this.dataService.user
+          );
         })
       )
       .subscribe(() => {
-        this.dataService
-          .getPronos(this.matchId)
-          .subscribe(
-            (p) =>
-              (this.otherPronos = p.filter((pr) => pr.user !== this.prono.user))
-          );
+        this.dataService.getPronos(this.matchId).subscribe((p) => {
+          this.otherPronos = p.filter((pr) => pr.user !== this.prono.user);
+          this.allUsers.forEach((u) => {
+            if (
+              !this.otherPronos.find(
+                (o) => o.user === u.name && o.homeScore !== undefined
+              )
+            ) {
+              this.usersNotDone.push(u.name);
+            }
+          });
+        });
       });
   }
 

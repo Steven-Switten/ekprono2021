@@ -87,21 +87,35 @@ export class RankingsComponent {
     this.dataService
       .getAllMatches()
       .pipe(
-        tap((m) => (matches = m)),
+        tap((m) => (matches = m.filter((m) => m.awayScore !== undefined))),
         switchMap(() => {
           return this.dataService.getAllPronos();
         }),
         tap((pronos) => {
           this.usersRanked.forEach((u) => {
             let userScore = 0;
-            matches.forEach((m) => {
-              const prono = pronos?.find((p) => p.user === u.name);
+
+            const uPronos = pronos?.filter((p) => p.user === u.name);
+            uPronos.forEach((prono) => {
               if (prono) {
-                const score = calculatePronoScore(prono, m);
-                // console.log(                  'prono for match',                  m.id,                  ' user: ',                  u.name,                  ': ',                  score,                  'pt'                );
+                const score = calculatePronoScore(
+                  prono,
+                  matches.find((m) => m.id === prono.matchId)
+                );
+                // console.log(
+                //   'prono for match',
+                //   prono.matchId,
+                //   ' user: ',
+                //   u.name,
+                //   ': ',
+                //   score,
+                //   'pt',
+                //   prono
+                // );
                 userScore += score;
               }
             });
+
             u.score = userScore;
             // TODO: extras
           });
