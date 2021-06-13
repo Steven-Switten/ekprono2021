@@ -5,4 +5,6 @@ export class Prono {
   homeScore?: number;
   awayScore?: number;
   firstGoalMinute?: number;
+
+  userScore?: number;
 }

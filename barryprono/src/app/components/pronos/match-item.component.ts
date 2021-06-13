@@ -20,10 +20,18 @@ import { Prono } from '../../models/prono';
         </ion-avatar>
         <div
           class="flex-column flex-center"
-          [ngClass]="{ ready: isReady, missing: !isReady }"
+          [ngClass]="{
+            ready: isReady && match.homeScore === undefined,
+            missing: !isReady
+          }"
         >
           <h3>{{ match.homeTeam }} - {{ match.awayTeam }}</h3>
-          <p>{{ match.date | date: 'dd/MM - HH:mm' }}</p>
+          <p *ngIf="match.homeScore === undefined">
+            {{ match.date | date: 'dd/MM - HH:mm' }}
+          </p>
+          <p *ngIf="match.homeScore !== undefined">
+            {{ match.homeScore }} - {{ match.awayScore }}
+          </p>
         </div>
         <ion-avatar class="country">
           <img [src]="getCountryAvatar(match.awayTeam)" />

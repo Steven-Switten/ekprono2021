@@ -48,7 +48,15 @@
       type="number"
     ></ion-input>
   </ion-item>
-  <ion-item *ngIf="hasDeadlinePassed">
+  <ion-item *ngIf="hasDeadlinePassed && match?.homeScore !== undefined">
+    <ion-label position="stacked">Uitslag:</ion-label>
+    <span class="m-5">{{ match?.homeScore }} - {{ match?.awayScore }}</span>
+  </ion-item>
+  <ion-item *ngIf="hasDeadlinePassed && match?.homeScore !== undefined">
+    <ion-label position="stacked">Minuut 1e goal:</ion-label>
+    <span class="m-5">{{ match?.firstGoalMinute }}</span>
+  </ion-item>
+  <ion-item *ngIf="hasDeadlinePassed && match?.homeScore !== undefined">
     <ion-label position="stacked">Punten gehaald</ion-label>
     <span class="m-5">{{ pronoScore }}</span></ion-item
   >
@@ -58,13 +66,15 @@
         <span></span><span>Pronos van de rest</span><span></span></div
     ></ion-item>
     <ion-item *ngFor="let prono of otherPronos">
-      <div class="flex-row space-between w-100pct flex-align-center m-5">
-        <ion-avatar slot="start">
+      <div class="flex-row space-between w-100pct flex-align-center">
+        <ion-avatar slot="start" class="m-5">
           <img [src]="getAvatar(prono?.user ?? '')" />
         </ion-avatar>
         <span slot="start"
-          >{{ prono.user }}: {{ prono.homeScore }} - {{ prono.awayScore }}</span
-        ><span></span><span slot="end">{{ prono.firstGoalMinute }}'</span>
+          >{{ prono.user }}:
+          <b>{{ prono.homeScore }} - {{ prono.awayScore }}</b> &nbsp;&nbsp;
+          <i> {{ prono.firstGoalMinute }}'</i></span
+        ><span></span><span>{{ getUserScore(prono) }} pt</span>
       </div>
     </ion-item>
   </div>

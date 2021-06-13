@@ -8,6 +8,7 @@ import { getAvatar } from 'src/app/utils/avatar-util';
 import { Match } from '../../models/match';
 import { calculatePronoScore } from '../../utils/score-util';
 import { User } from '../../models/user';
+import { sortObjects } from '../../utils/sort.util';
 
 @Component({
   selector: 'app-prono-detail',
@@ -100,6 +101,12 @@ export class PronoDetailComponent {
               this.usersNotDone.push(u.name);
             }
           });
+          this.otherPronos.forEach((p) => {
+            if (this.match?.awayScore !== undefined) {
+              p.userScore = this.getUserScore(p);
+            }
+          });
+          this.otherPronos = sortObjects(this.otherPronos, ['userScore'], -1);
         });
       });
   }
@@ -121,5 +128,9 @@ export class PronoDetailComponent {
 
   getAvatar(user: string): string {
     return getAvatar(user);
+  }
+
+  getUserScore(prono: Prono): number {
+    return calculatePronoScore(prono, this.match);
   }
 }
