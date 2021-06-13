@@ -19,6 +19,7 @@ export class RankingsComponent {
     return new Date(2021, 5, 11, 21, 0, 0) <= new Date();
   }
   extras: Extras[] = [];
+  luckyGoalPoints = false;
 
   constructor(
     private dataService: DataService,
@@ -82,7 +83,7 @@ export class RankingsComponent {
     this.navController.navigateForward(`users/${user}`);
   }
 
-  calculateScores() {
+  calculateScores(luckyGoalOnly: boolean = false) {
     let matches: Match[] = [];
     this.dataService
       .getAllMatches()
@@ -100,24 +101,15 @@ export class RankingsComponent {
               if (prono) {
                 const score = calculatePronoScore(
                   prono,
-                  matches.find((m) => m.id === prono.matchId)
+                  matches.find((m) => m.id === prono.matchId),
+                  luckyGoalOnly
                 );
-                // console.log(
-                //   'prono for match',
-                //   prono.matchId,
-                //   ' user: ',
-                //   u.name,
-                //   ': ',
-                //   score,
-                //   'pt',
-                //   prono
-                // );
+
                 userScore += score;
               }
             });
 
             u.score = userScore;
-            // TODO: extras
           });
         }),
         tap(() => {
@@ -127,5 +119,10 @@ export class RankingsComponent {
         })
       )
       .subscribe();
+  }
+
+  toggleLuckyGoalPoints() {
+    this.luckyGoalPoints = !this.luckyGoalPoints;
+    this.calculateScores(this.luckyGoalPoints);
   }
 }

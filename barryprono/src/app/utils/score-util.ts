@@ -3,7 +3,8 @@ import { Match } from '../models/match';
 
 export function calculatePronoScore(
   prono: Prono | undefined,
-  matchResult: Match | undefined
+  matchResult: Match | undefined,
+  luckyGoalOnly: boolean = false
 ): number {
   let totalScore = 0;
   if (
@@ -16,6 +17,22 @@ export function calculatePronoScore(
   ) {
     return 0;
   }
+  if (matchResult.firstGoalMinute !== null) {
+    if (prono.firstGoalMinute === matchResult.firstGoalMinute) {
+      totalScore += 2;
+    } else if (
+      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) + 1 ||
+      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) + 2 ||
+      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) - 1 ||
+      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) - 2
+    ) {
+      totalScore += 1;
+    }
+  }
+  if (luckyGoalOnly) {
+    return totalScore;
+  }
+
   const matchWinner =
     matchResult.homeScore === matchResult.awayScore
       ? 'draw'
@@ -45,18 +62,6 @@ export function calculatePronoScore(
   }
   if (prono.awayScore === matchResult.awayScore) {
     totalScore += 1;
-  }
-  if (matchResult.firstGoalMinute !== null) {
-    if (prono.firstGoalMinute === matchResult.firstGoalMinute) {
-      totalScore += 2;
-    } else if (
-      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) + 1 ||
-      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) + 2 ||
-      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) - 1 ||
-      prono.firstGoalMinute === (matchResult.firstGoalMinute as number) - 2
-    ) {
-      totalScore += 1;
-    }
   }
 
   return totalScore;
