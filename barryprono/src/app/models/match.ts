@@ -8,4 +8,5 @@ export class Match {
   awayScore?: number;
   homeScore?: number;
   firstGoalMinute?: number;
+  matchWinner?: string;
 }

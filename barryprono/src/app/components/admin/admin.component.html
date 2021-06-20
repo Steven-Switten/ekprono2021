@@ -61,6 +61,21 @@
       <ion-label position="stacked">{{ matchToEdit?.awayTeam }}</ion-label>
       <ion-input [(ngModel)]="matchToEdit.awayScore" type="number"></ion-input>
     </ion-item>
+    <ion-item
+      *ngIf="
+        !!matchToEdit &&
+        matchToEdit.id > 36 &&
+        matchToEdit.awayScore !== undefined &&
+        matchToEdit.homeScore !== undefined &&
+        matchToEdit.awayScore === matchToEdit.homeScore
+      "
+    >
+      <ion-label position="stacked">Winnaar match:</ion-label>
+      <ion-select [(ngModel)]="matchToEdit.matchWinner" interface="popover">
+        <ion-select-option>{{ matchToEdit.homeTeam }}</ion-select-option>
+        <ion-select-option>{{ matchToEdit.awayTeam }}</ion-select-option>
+      </ion-select></ion-item
+    >
     <ion-item>
       <ion-label position="stacked">Eerste goal minuut</ion-label>
       <ion-input

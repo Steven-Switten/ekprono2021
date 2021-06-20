@@ -91,6 +91,7 @@ export class PronoDetailComponent {
       )
       .subscribe(() => {
         this.dataService.getPronos(this.matchId).subscribe((p) => {
+          this.usersNotDone = [];
           this.otherPronos = p.filter((pr) => pr.user !== this.prono.user);
           this.allUsers.forEach((u) => {
             if (

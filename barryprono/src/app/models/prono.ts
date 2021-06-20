@@ -6,5 +6,7 @@ export class Prono {
   awayScore?: number;
   firstGoalMinute?: number;
 
+  matchWinner?: string;
+
   userScore?: number;
 }

@@ -4,9 +4,11 @@ import { Match } from '../models/match';
 export function calculatePronoScore(
   prono: Prono | undefined,
   matchResult: Match | undefined,
-  luckyGoalOnly: boolean = false
+  luckyGoalOnly: boolean = false,
+  calculateLuckyGoal: boolean = true
 ): number {
   let totalScore = 0;
+
   if (
     !prono ||
     !matchResult ||
@@ -17,7 +19,8 @@ export function calculatePronoScore(
   ) {
     return 0;
   }
-  if (matchResult.firstGoalMinute !== null) {
+
+  if (matchResult.firstGoalMinute !== null && calculateLuckyGoal) {
     if (prono.firstGoalMinute === matchResult.firstGoalMinute) {
       totalScore += 2;
     } else if (
@@ -34,14 +37,14 @@ export function calculatePronoScore(
   }
 
   const matchWinner =
-    matchResult.homeScore === matchResult.awayScore
+    matchResult.matchWinner ?? matchResult.homeScore === matchResult.awayScore
       ? 'draw'
       : matchResult.homeScore > matchResult.awayScore
       ? 'home'
       : 'away';
 
   const pronoWinner =
-    prono.homeScore === prono.awayScore
+    prono.matchWinner ?? prono.homeScore === prono.awayScore
       ? 'draw'
       : prono.homeScore > prono.awayScore
       ? 'home'

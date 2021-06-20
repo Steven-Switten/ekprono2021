@@ -40,6 +40,21 @@
       </div>
     </div>
   </ion-item>
+  <ion-item
+    *ngIf="
+      !!match &&
+      match.id > 36 &&
+      prono.awayScore !== undefined &&
+      prono.homeScore !== undefined &&
+      prono.awayScore === prono.homeScore
+    "
+  >
+    <ion-label position="stacked">Winnaar match:</ion-label>
+    <ion-select [(ngModel)]="prono.matchWinner" interface="popover">
+      <ion-select-option>{{ match.homeTeam }}</ion-select-option>
+      <ion-select-option>{{ match.awayTeam }}</ion-select-option>
+    </ion-select></ion-item
+  >
   <ion-item>
     <ion-label position="stacked">Eerste goal minuut</ion-label>
     <ion-input

@@ -20,6 +20,7 @@ export class RankingsComponent {
   }
   extras: Extras[] = [];
   luckyGoalPoints = false;
+  showCorrectMatches = false;
 
   constructor(
     private dataService: DataService,
@@ -76,14 +77,16 @@ export class RankingsComponent {
   }
 
   goToUserDetail(user: string) {
-    console.log('toon pagina van ', user);
     if (user.includes('BeatingBumBeirt')) {
       user = 'BeatingBumBeirt';
     }
     this.navController.navigateForward(`users/${user}`);
   }
 
-  calculateScores(luckyGoalOnly: boolean = false) {
+  calculateScores(
+    luckyGoalOnly: boolean = false,
+    exactMatches: boolean = false
+  ) {
     let matches: Match[] = [];
     this.dataService
       .getAllMatches()
@@ -96,16 +99,22 @@ export class RankingsComponent {
           this.usersRanked.forEach((u) => {
             let userScore = 0;
 
-            const uPronos = pronos?.filter((p) => p.user === u.name);
-            uPronos.forEach((prono) => {
+            const userPronos = pronos?.filter((p) => p.user === u.name);
+            userPronos.forEach((prono) => {
               if (prono) {
                 const score = calculatePronoScore(
                   prono,
                   matches.find((m) => m.id === prono.matchId),
-                  luckyGoalOnly
+                  luckyGoalOnly,
+                  !exactMatches
                 );
-
-                userScore += score;
+                if (exactMatches) {
+                  if (score === 9) {
+                    userScore += 1;
+                  }
+                } else {
+                  userScore += score;
+                }
               }
             });
 
@@ -123,6 +132,17 @@ export class RankingsComponent {
 
   toggleLuckyGoalPoints() {
     this.luckyGoalPoints = !this.luckyGoalPoints;
-    this.calculateScores(this.luckyGoalPoints);
+    this.calculateScores(this.luckyGoalPoints, false);
+  }
+
+  toggleShowMatchesCorrect() {
+    this.showCorrectMatches = !this.showCorrectMatches;
+    this.calculateScores(false, true);
+  }
+
+  showRankings() {
+    this.showCorrectMatches = false;
+    this.luckyGoalPoints = false;
+    this.calculateScores(false, false);
   }
 }
