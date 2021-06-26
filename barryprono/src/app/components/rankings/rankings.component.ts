@@ -21,6 +21,7 @@ export class RankingsComponent {
   extras: Extras[] = [];
   luckyGoalPoints = false;
   showCorrectMatches = false;
+  winnerOnly = false;
 
   constructor(
     private dataService: DataService,
@@ -28,6 +29,8 @@ export class RankingsComponent {
   ) {}
 
   ionViewWillEnter() {
+    this.luckyGoalPoints = false;
+    this.showCorrectMatches = false;
     this.dataService
       .getAllUsers()
       .pipe(
@@ -85,7 +88,8 @@ export class RankingsComponent {
 
   calculateScores(
     luckyGoalOnly: boolean = false,
-    exactMatches: boolean = false
+    exactMatches: boolean = false,
+    winnerOnly: boolean = false
   ) {
     let matches: Match[] = [];
     this.dataService
@@ -106,9 +110,10 @@ export class RankingsComponent {
                   prono,
                   matches.find((m) => m.id === prono.matchId),
                   luckyGoalOnly,
-                  !exactMatches
+                  !exactMatches,
+                  winnerOnly
                 );
-                if (exactMatches) {
+                if (exactMatches && !winnerOnly) {
                   if (score === 9) {
                     userScore += 1;
                   }
@@ -119,6 +124,9 @@ export class RankingsComponent {
             });
 
             u.score = userScore;
+            if (winnerOnly) {
+              u.score = u.score / 5;
+            }
           });
         }),
         tap(() => {
@@ -132,17 +140,23 @@ export class RankingsComponent {
 
   toggleLuckyGoalPoints() {
     this.luckyGoalPoints = !this.luckyGoalPoints;
-    this.calculateScores(this.luckyGoalPoints, false);
+    this.calculateScores(this.luckyGoalPoints, false, false);
   }
 
   toggleShowMatchesCorrect() {
     this.showCorrectMatches = !this.showCorrectMatches;
-    this.calculateScores(false, true);
+    this.calculateScores(false, true, false);
+  }
+
+  toggleShowWinnerOnly() {
+    this.winnerOnly = !this.winnerOnly;
+    this.calculateScores(false, true, true);
   }
 
   showRankings() {
     this.showCorrectMatches = false;
     this.luckyGoalPoints = false;
-    this.calculateScores(false, false);
+    this.winnerOnly = false;
+    this.calculateScores(false, false, false);
   }
 }

@@ -5,7 +5,8 @@ export function calculatePronoScore(
   prono: Prono | undefined,
   matchResult: Match | undefined,
   luckyGoalOnly: boolean = false,
-  calculateLuckyGoal: boolean = true
+  calculateLuckyGoal: boolean = true,
+  winnerOnly: boolean = false
 ): number {
   let totalScore = 0;
 
@@ -44,14 +45,21 @@ export function calculatePronoScore(
       : 'away';
 
   const pronoWinner =
-    prono.matchWinner ?? prono.homeScore === prono.awayScore
+    prono.homeScore === prono.awayScore && !prono.matchWinner
       ? 'draw'
+      : prono.matchWinner === matchResult.homeTeam
+      ? 'home'
+      : prono.matchWinner === matchResult.awayTeam
+      ? 'away'
       : prono.homeScore > prono.awayScore
       ? 'home'
       : 'away';
 
   if (matchWinner === pronoWinner) {
     totalScore += 5;
+  }
+  if (winnerOnly) {
+    return totalScore;
   }
 
   const matchGoalDiff = matchResult.homeScore - matchResult.awayScore;

@@ -87,13 +87,23 @@
         </ion-avatar>
         <span slot="start"
           >{{ prono.user }}:
-          <span [ngClass]="{ bold: prono.matchWinner === match?.homeTeam }">{{
-            prono.homeScore
-          }}</span>
+          <span
+            [ngClass]="{
+              bold:
+                prono.homeScore === prono.awayScore &&
+                prono.matchWinner === match?.homeTeam
+            }"
+            >{{ prono.homeScore }}</span
+          >
           -
-          <span [ngClass]="{ bold: prono.matchWinner === match?.awayTeam }">{{
-            prono.awayScore
-          }}</span>
+          <span
+            [ngClass]="{
+              bold:
+                prono.homeScore === prono.awayScore &&
+                prono.matchWinner === match?.awayTeam
+            }"
+            >{{ prono.awayScore }}</span
+          >
           &nbsp;&nbsp; <i> {{ prono.firstGoalMinute }}'</i></span
         ><span></span><span>{{ getUserScore(prono) }} pt</span>
       </div>
