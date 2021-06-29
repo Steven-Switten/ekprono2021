@@ -23,7 +23,7 @@ export class ExtrasComponent {
   extras = new Extras('');
 
   get canEdit(): boolean {
-    return new Date(2021, 5, 11, 21, 0, 0) > new Date();
+    return new Date(2021, 5, 11, 21, 0, 0) > new Date() || true;
   }
 
   constructor(

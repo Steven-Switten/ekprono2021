@@ -5,7 +5,10 @@ import { Extras } from 'src/app/models/extras';
 import { User } from 'src/app/models/user';
 import { DataService } from 'src/app/services/data.service';
 import { getAvatar } from 'src/app/utils/avatar-util';
-import { calculatePronoScore } from 'src/app/utils/score-util';
+import {
+  calculateGroupWinnerScores,
+  calculatePronoScore,
+} from 'src/app/utils/score-util';
 import { Match } from '../../models/match';
 
 @Component({
@@ -126,6 +129,18 @@ export class RankingsComponent {
             u.score = userScore;
             if (winnerOnly) {
               u.score = u.score / 5;
+            }
+
+            if (
+              !this.luckyGoalPoints &&
+              !this.showCorrectMatches &&
+              !this.winnerOnly
+            ) {
+              const extrasScore = calculateGroupWinnerScores(
+                this.extras.find((e) => e.user === u.name) as Extras,
+                this.extras.find((e) => e.user === 'admin') as Extras
+              );
+              u.score += extrasScore;
             }
           });
         }),

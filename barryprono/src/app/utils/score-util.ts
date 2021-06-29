@@ -1,5 +1,6 @@
 import { Prono } from '../models/prono';
 import { Match } from '../models/match';
+import { Extras } from '../models/extras';
 
 export function calculatePronoScore(
   prono: Prono | undefined,
@@ -76,4 +77,73 @@ export function calculatePronoScore(
   }
 
   return totalScore;
+}
+
+export function calculateGroupWinnerScores(
+  extras: Extras,
+  adminExtras: Extras
+): number {
+  let score = 0;
+
+  if (adminExtras.winnerA === extras.winnerA) {
+    score += 1;
+  }
+  if (adminExtras.winnerB === extras.winnerB) {
+    score += 1;
+  }
+  if (adminExtras.winnerC === extras.winnerC) {
+    score += 1;
+  }
+  if (adminExtras.winnerD === extras.winnerD) {
+    score += 1;
+  }
+  if (adminExtras.winnerE === extras.winnerE) {
+    score += 1;
+  }
+  if (adminExtras.winnerF === extras.winnerF) {
+    score += 1;
+  }
+  if (adminExtras.loserA === extras.loserA) {
+    score += 1;
+  }
+  if (adminExtras.loserB === extras.loserB) {
+    score += 1;
+  }
+  if (adminExtras.loserC === extras.loserC) {
+    score += 1;
+  }
+  if (adminExtras.loserD === extras.loserD) {
+    score += 1;
+  }
+  if (adminExtras.loserE === extras.loserE) {
+    score += 1;
+  }
+  if (adminExtras.loserF === extras.loserF) {
+    score += 1;
+  }
+
+  if (adminExtras.winnerAll === extras.winnerAll) {
+    score += 10;
+  }
+  if (adminExtras.secondPlace === extras.secondPlace) {
+    score += 2;
+  }
+
+  if (
+    extras.thirdPlace === adminExtras.thirdPlace ||
+    extras.thirdPlace === adminExtras.fourthPlace
+  ) {
+    score += 1;
+  }
+
+  if (
+    extras.fourthPlace === adminExtras.thirdPlace ||
+    extras.fourthPlace === adminExtras.fourthPlace
+  ) {
+    score += 1;
+  }
+
+  console.log(extras.user, score);
+  // console.log('extras admin', adminExtras);
+  return score;
 }
