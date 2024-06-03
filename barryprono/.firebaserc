@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "barryprono"
+    "default": "barryprono",
+    "prono": "barryprono-f0d76"
   }
 }

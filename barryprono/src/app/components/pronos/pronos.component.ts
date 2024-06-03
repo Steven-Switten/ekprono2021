@@ -15,8 +15,10 @@ export class PronosComponent {
   showThirdMatchDay =
     new Date() >= new Date(2021, 5, 16) && new Date() <= new Date(2021, 5, 24);
 
-  showKnockOutMatches = new Date() >= new Date(2021, 5, 21);
-  showQuarterFinals = new Date() >= new Date(2021, 5, 27);
+  showKnockOutMatches =
+    new Date() >= new Date(2021, 5, 21) && new Date() <= new Date(2021, 6, 1);
+  showQuarterFinals =
+    new Date() >= new Date(2021, 5, 27) && new Date() <= new Date(2021, 6, 4);
 
   get firstMatches(): Match[] {
     return this.allMatches.filter((m) => m.id <= 12);
@@ -42,12 +44,8 @@ export class PronosComponent {
     return this.allMatches.filter((m) => m.id > 48 && m.id <= 50);
   }
 
-  get smallFinal(): Match | undefined {
-    return this.allMatches.find((m) => m.id === 51);
-  }
-
   get final(): Match | undefined {
-    return this.allMatches.find((m) => m.id === 52);
+    return this.allMatches.find((m) => m.id === 51);
   }
 
   constructor(

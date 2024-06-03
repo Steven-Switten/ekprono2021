@@ -7,9 +7,11 @@ import { DataService } from 'src/app/services/data.service';
 import { getAvatar } from 'src/app/utils/avatar-util';
 import {
   calculateGroupWinnerScores,
+  calculateMetaScores,
   calculatePronoScore,
 } from 'src/app/utils/score-util';
 import { Match } from '../../models/match';
+import { Metas } from 'src/app/models/metas';
 
 @Component({
   selector: 'app-rankings',
@@ -22,6 +24,7 @@ export class RankingsComponent {
     return new Date(2021, 5, 11, 21, 0, 0) <= new Date();
   }
   extras: Extras[] = [];
+  metas: Metas[] = [];
   luckyGoalPoints = false;
   showCorrectMatches = false;
   winnerOnly = false;
@@ -54,6 +57,8 @@ export class RankingsComponent {
     this.dataService
       .getAllExtras()
       .subscribe((extras) => (this.extras = extras));
+
+    this.dataService.getAllMetas().subscribe((metas) => (this.metas = metas));
   }
 
   goBack() {
@@ -141,6 +146,11 @@ export class RankingsComponent {
                 this.extras.find((e) => e.user === 'admin') as Extras
               );
               u.score += extrasScore;
+              const metasScore = calculateMetaScores(
+                this.metas.find((e) => e.user === u.name) as Metas,
+                this.metas.find((e) => e.user === 'admin') as Metas
+              );
+              u.score += metasScore;
             }
           });
         }),

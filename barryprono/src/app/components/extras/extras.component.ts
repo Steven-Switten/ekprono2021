@@ -21,9 +21,11 @@ export class ExtrasComponent {
   allTeams: string[] = [];
 
   extras = new Extras('');
-
+  name: string;
   get canEdit(): boolean {
-    return new Date(2021, 5, 11, 21, 0, 0) > new Date();
+    return (
+      this.name === 'admin' || new Date(2021, 5, 11, 21, 0, 0) > new Date()
+    );
   }
 
   constructor(
@@ -32,6 +34,7 @@ export class ExtrasComponent {
   ) {
     const arrays = Object.values(this.groups) as any[];
     this.allTeams = [].concat.apply([], arrays).sort();
+    this.name = this.dataService.user as string;
   }
 
   ionViewWillEnter() {

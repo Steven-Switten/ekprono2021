@@ -4,12 +4,9 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "site": "barryprono-f0d76",
     "public": "dist/barryprono",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",

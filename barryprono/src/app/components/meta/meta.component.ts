@@ -14,14 +14,19 @@ import { DataService } from 'src/app/services/data.service';
 export class MetaComponent {
   metas: Metas = new Metas('');
   get canEdit(): boolean {
-    return new Date(2021, 5, 11, 21, 0, 0) > new Date();
+    return (
+      this.name === 'admin' || new Date(2021, 5, 11, 21, 0, 0) > new Date()
+    );
   }
   allUsers: User[] = [];
+  name: string;
 
   constructor(
     private dataService: DataService,
     private navController: NavController
-  ) {}
+  ) {
+    this.name = this.dataService.user as string;
+  }
 
   ionViewWillEnter() {
     if (!this.dataService.user) {

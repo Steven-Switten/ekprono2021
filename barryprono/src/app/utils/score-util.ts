@@ -1,6 +1,7 @@
 import { Prono } from '../models/prono';
 import { Match } from '../models/match';
 import { Extras } from '../models/extras';
+import { Metas } from '../models/metas';
 
 export function calculatePronoScore(
   prono: Prono | undefined,
@@ -38,23 +39,27 @@ export function calculatePronoScore(
     return totalScore;
   }
 
-  const matchWinner =
-    matchResult.matchWinner ?? matchResult.homeScore === matchResult.awayScore
-      ? 'draw'
-      : matchResult.homeScore > matchResult.awayScore
-      ? 'home'
-      : 'away';
+  let matchWinner = 'draw';
+  if (matchResult.matchWinner) {
+    matchWinner =
+      matchResult.matchWinner === matchResult.homeTeam ? 'home' : 'away';
+  } else {
+    matchWinner =
+      matchResult.homeScore === matchResult.awayScore
+        ? 'draw'
+        : matchResult.homeScore > matchResult.awayScore
+        ? 'home'
+        : 'away';
+  }
 
-  const pronoWinner =
-    prono.homeScore === prono.awayScore && !prono.matchWinner
-      ? 'draw'
-      : prono.matchWinner === matchResult.homeTeam
-      ? 'home'
-      : prono.matchWinner === matchResult.awayTeam
-      ? 'away'
-      : prono.homeScore > prono.awayScore
-      ? 'home'
-      : 'away';
+  let pronoWinner = '';
+  if (prono.homeScore === prono.awayScore && !prono.matchWinner) {
+    pronoWinner = 'draw';
+  } else if (prono.homeScore === prono.awayScore && prono.matchWinner) {
+    pronoWinner = prono.matchWinner === matchResult.homeTeam ? 'home' : 'away';
+  } else {
+    pronoWinner = prono.homeScore > prono.awayScore ? 'home' : 'away';
+  }
 
   if (matchWinner === pronoWinner) {
     totalScore += 5;
@@ -143,7 +148,30 @@ export function calculateGroupWinnerScores(
     score += 1;
   }
 
-  console.log(extras.user, score);
-  // console.log('extras admin', adminExtras);
+  return score;
+}
+
+export function calculateMetaScores(metas: Metas, adminMetas: Metas): number {
+  let score = 0;
+  if (!adminMetas.winner.includes('Beating')) {
+    console.log('not ready yet');
+    return score;
+  }
+  if (adminMetas.winner === metas.winner) {
+    score += 1;
+  }
+  if (adminMetas.lucky === metas.lucky) {
+    score += 1;
+  }
+  if (adminMetas.unlucky === metas.unlucky) {
+    score += 1;
+  }
+  if (adminMetas.loser === metas.loser) {
+    score += 1;
+  }
+  if (adminMetas.bumOrSwiggy === metas.bumOrSwiggy) {
+    score += 1;
+  }
+  console.log('meta points:', metas.user, score);
   return score;
 }

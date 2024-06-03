@@ -61,6 +61,13 @@ export class DataService {
       .pipe(take(1));
   }
 
+  getAllMetas(): Observable<Metas[]> {
+    return this.firestore
+      .collection<Metas>('metas')
+      .valueChanges()
+      .pipe(take(1));
+  }
+
   saveExtras(user: string | undefined, extras: Extras): Observable<any> {
     return from(
       this.firestore
